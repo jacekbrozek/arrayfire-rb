@@ -1,0 +1,27 @@
+PATH
+  remote: .
+  specs:
+    arrayfire (0.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    minitest (5.11.3)
+    rake (10.5.0)
+    rake-compiler (1.0.7)
+      rake
+    rice (2.1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  arrayfire!
+  bundler (~> 1.16)
+  minitest (~> 5.0)
+  rake (~> 10.0)
+  rake-compiler
+  rice
+
+BUNDLED WITH
+   1.16.6
