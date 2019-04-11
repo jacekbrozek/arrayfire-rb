@@ -18,31 +18,42 @@ void rb_finfo() {
 
 class AfArray {
   private:
-  af_array c_array;
+  af_array c_array = 0;
 
   public:
+  AfArray(array af_array) {
+  	this->set_c_array(af_array);
+		this->print();
+  }
+
   AfArray(int rows, int cols, Array elements, Symbol data_type) {
     dtype type = ruby_sym_to_dtype(data_type);
 
-    dim_t ndims = (dim_t)NUM2LONG(rows);
-    dim_t* dimensions = (dim_t*)malloc(ndims * sizeof(dim_t));
-    dim_t count = 1;
-    for (size_t index = 0; index < ndims; index++) {
-      dimensions[index] = (dim_t)NUM2LONG(RARRAY_AREF(cols, index));
-      count *= dimensions[index];
-    }
-
-    float* host_array = (float*)malloc(count * sizeof(float));
-    for (size_t index = 0; index < count; index++) {
-      host_array[index] = (float)NUM2DBL(RARRAY_AREF(elements, index));
-    }
-
-
-    af_create_array(&c_array, host_array, ndims, dimensions, f32);
+    int count = elements.size();
+    float trans_mat[count];
+    for(int i = 0; i < count; i++) {
+    	trans_mat[i] = from_ruby<float>(elements[i]);
+	  };
+     af::dim4 tdims(rows, cols, 1, 1);
+     af_create_array(&this->c_array, trans_mat, tdims.ndims(), tdims.get(), type);
+     this->print();
   }
 
   void print() {
-    af_print_array(c_array);
+    af_print_array(this->c_array);
+  }
+
+  AfArray multiply(AfArray other) {
+  	afarray = this->c_array * other->get_c_array();
+  	return new AfArray(afarray);
+  }
+
+  array get_c_array() {
+  	return this->c_array;
+  }
+
+  void set_c_array(array afarray) {
+  	this->c_array = afarray;
   }
 };
 
