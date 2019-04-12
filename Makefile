@@ -12,13 +12,13 @@ NULLCMD = :
 #### Start of system configuration section. ####
 
 srcdir = ext/arrayfire
-topdir = /Users/jacekbrozek/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0
+topdir = /Users/jacekbrozek/.rvm/rubies/ruby-2.6.2/include/ruby-2.6.0
 hdrdir = $(topdir)
-arch_hdrdir = /Users/jacekbrozek/.rvm/rubies/ruby-2.5.1/include/ruby-2.5.0/x86_64-darwin17
+arch_hdrdir = /Users/jacekbrozek/.rvm/rubies/ruby-2.6.2/include/ruby-2.6.0/x86_64-darwin17
 PATH_SEPARATOR = :
 VPATH = $(srcdir):$(arch_hdrdir)/ruby:$(hdrdir)/ruby
 
-prefix = $(DESTDIR)/Users/jacekbrozek/.rvm/rubies/ruby-2.5.1
+prefix = $(DESTDIR)/Users/jacekbrozek/.rvm/rubies/ruby-2.6.2
 
 rubysitearchprefix = $(rubylibprefix)/$(sitearch)
 
@@ -108,12 +108,13 @@ archdir = $(rubyarchdir)
 
 
 
-CC = gcc
+CC_WRAPPER = 
+CC = $(CC_WRAPPER) gcc
 CXX = g++
 LIBRUBY = $(LIBRUBY_SO)
 LIBRUBY_A = lib$(RUBY_SO_NAME)-static.a
 LIBRUBYARG_SHARED = -l$(RUBY_SO_NAME)
-LIBRUBYARG_STATIC = -lruby.2.5.1-static -framework Foundation
+LIBRUBYARG_STATIC = -lruby.2.6-static -framework Security -framework Foundation -lpthread -lgmp -ldl -lobjc
 empty =
 OUTFLAG = -o $(empty)
 COUTFLAG = -o $(empty)
@@ -124,14 +125,15 @@ cflags   = $(optflags) $(debugflags) $(warnflags)
 cxxflags = $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -ggdb3
-warnflags = -Wall -Wextra -Wno-unused-parameter -Wno-parentheses -Wno-long-long -Wno-missing-field-initializers -Wno-tautological-compare -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-self-assign -Wunused-variable -Wimplicit-int -Wpointer-arith -Wwrite-strings -Wdeclaration-after-statement -Wshorten-64-to-32 -Wimplicit-function-declaration -Wdivision-by-zero -Wdeprecated-declarations -Wextra-tokens
+warnflags = -Wall -Wextra -Wdeclaration-after-statement -Wdeprecated-declarations -Wdivision-by-zero -Wimplicit-function-declaration -Wimplicit-int -Wpointer-arith -Wshorten-64-to-32 -Wwrite-strings -Wmissing-noreturn -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wunused-variable -Wextra-tokens
+cppflags = 
 CCDLFLAGS = -fno-common
 CFLAGS   = $(CCDLFLAGS) $(cflags)  -fno-common -pipe $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS =   -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl@1.1/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) -arch x86_64 -I/Users/jacekbrozek/.rvm/gems/ruby-2.5.1/gems/rice-2.1.3/ruby/lib/include -I/opt/arrayfire/include
+CPPFLAGS =   -I/usr/local/opt/libyaml/include -I/usr/local/opt/readline/include -I/usr/local/opt/libksba/include -I/usr/local/opt/openssl@1.1/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags) -arch x86_64 -I/Users/jacekbrozek/.rvm/gems/ruby-2.6.2/gems/rice-2.1.3/ruby/lib/include -I/opt/arrayfire/include
 CXXFLAGS = $(CFLAGS)  -Wall -g
-ldflags  = -L. -fstack-protector -L/usr/local/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib  -L/Users/jacekbrozek/.rvm/gems/ruby-2.5.1/gems/rice-2.1.3/ruby/lib/lib -lrice
+ldflags  = -L. -fstack-protector-strong -L/usr/local/lib -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib  -L/Users/jacekbrozek/.rvm/gems/ruby-2.6.2/gems/rice-2.1.3/ruby/lib/lib -lrice
 dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress -L/usr/local/opt/libyaml/lib -L/usr/local/opt/readline/lib -L/usr/local/opt/libksba/lib -L/usr/local/opt/openssl@1.1/lib -L/opt/arrayfire/lib 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -143,7 +145,7 @@ EXEEXT =
 
 RUBY_INSTALL_NAME = $(RUBY_BASE_NAME)
 
-RUBY_SO_NAME = ruby.2.5.1
+RUBY_SO_NAME = ruby.2.6
 
 RUBYW_INSTALL_NAME = 
 
@@ -156,7 +158,7 @@ RUBY_BASE_NAME = ruby
 
 arch = x86_64-darwin17
 sitearch = $(arch)
-ruby_version = 2.5.0
+ruby_version = 2.6.0
 ruby = $(bindir)/$(RUBY_BASE_NAME)
 RUBY = $(ruby)
 ruby_headers = $(hdrdir)/ruby.h $(hdrdir)/ruby/backward.h $(hdrdir)/ruby/ruby.h $(hdrdir)/ruby/defines.h $(hdrdir)/ruby/missing.h $(hdrdir)/ruby/intern.h $(hdrdir)/ruby/st.h $(hdrdir)/ruby/subst.h $(arch_hdrdir)/ruby/config.h
@@ -189,7 +191,7 @@ extout =
 extout_prefix = 
 target_prefix = /arrayfire
 LOCAL_LIBS = 
-LIBS = -lafcpu -lruby.2.5.1 -lpthread -lgmp -ldl -lobjc  -L/opt/arrayfire/lib
+LIBS = -lafopencl -lruby.2.6   -L/opt/arrayfire/lib
 ORIG_SRCS = af_array.cpp arrayfire.cpp
 SRCS = $(ORIG_SRCS) 
 OBJS = af_array.o arrayfire.o
