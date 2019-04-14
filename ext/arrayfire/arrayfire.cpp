@@ -11,8 +11,9 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("info", &info);
 
   Class rb_cArray = define_class_under<AfArray>(rb_mArrayFire, "Array")
-    .define_constructor(Constructor<AfArray, int, int, Array, Symbol>())
+    .define_constructor(Constructor<AfArray, Array, Array, Symbol>())
     .define_singleton_method("randu", &AfArray::randu)
+    .define_singleton_method("randn", &AfArray::randu)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)

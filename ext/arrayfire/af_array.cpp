@@ -1,18 +1,14 @@
 #include "af_array.h"
 
-// AfArray::AfArray(af_array afarray) {
-//   this->set_c_array(afarray);
-// }
-
 AfArray::AfArray(array afarray) {
   this->set_c_array(afarray);
 }
 
-AfArray::AfArray(int rows, int cols, Array elements, Symbol data_type) {
+AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
   af_array afarray = 0;
   dtype type = ruby_sym_to_dtype(data_type);
 
-  dim4 tdims(rows, cols, 1, 1);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
 
   switch (type) {
     case f32: create_internal_array<float>(afarray, elements, tdims, type); break;
@@ -30,11 +26,20 @@ AfArray::AfArray(int rows, int cols, Array elements, Symbol data_type) {
   }
 }
 
+dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
+  size_t count = dimensions.size();
+  dim4 tdims = dim4(1, 1, 1, 1);
+  for (size_t index = 0; index < count; index++) {
+    tdims[index] = from_ruby<uint>(dimensions[index]);
+  }
+  return tdims;
+}
+
 template<typename T>
 void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type) {
-  int count = elements.size();
+  size_t count = elements.size();
   T casted_elements[count];
-  for(int i = 0; i < count; i++) {
+  for(size_t i = 0; i < count; i++) {
     casted_elements[i] = from_ruby<T>(elements[i]);
   };
   af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
@@ -43,9 +48,9 @@ void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims
 
 template<typename T>
 void AfArray::create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type) {
-  int count = elements.size();
+  size_t count = elements.size();
   T casted_elements[count];
-  for(int i = 0; i < count; i++) {
+  for(size_t i = 0; i < count; i++) {
     Object element = Object(elements[i]);
     double real = from_ruby<double>(element.call("real"));
     double imaginary = from_ruby<double>(element.call("imaginary"));
@@ -88,6 +93,12 @@ AfArray* AfArray::div(AfArray other) {
 }
 
 AfArray* AfArray::randu(int rows, int cols, Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  array afarray = af::randu(cols, rows, type);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::randn(int rows, int cols, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
   array afarray = af::randu(cols, rows, type);
   return new AfArray(afarray);
