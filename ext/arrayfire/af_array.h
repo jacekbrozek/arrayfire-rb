@@ -16,12 +16,12 @@ class AfArray {
     AfArray* multiply(Object other);
     AfArray* add(AfArray other);
     AfArray* div(AfArray other);
-    static AfArray* randu(int rows, int cols, Symbol data_type);
-    static AfArray* randn(int rows, int cols, Symbol data_type);
+    static AfArray* randu(Array dimensions, Symbol data_type);
+    static AfArray* randn(Array dimensions, Symbol data_type);
 
   private:
     array get_c_array();
-    dim4 ruby_array_to_dimensions(Array dimensions);
+    static dim4 ruby_array_to_dimensions(Array dimensions);
     void set_c_array(af_array afarray);
     void set_c_array(const array& afarray);
     AfArray* multiply_internal(AfArray other);

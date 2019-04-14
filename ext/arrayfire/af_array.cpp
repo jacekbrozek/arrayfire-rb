@@ -92,15 +92,17 @@ AfArray* AfArray::div(AfArray other) {
   return new AfArray(afarray);
 }
 
-AfArray* AfArray::randu(int rows, int cols, Symbol data_type) {
+AfArray* AfArray::randu(Array dimensions, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
-  array afarray = af::randu(cols, rows, type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  array afarray = af::randu(tdims, type);
   return new AfArray(afarray);
 }
 
-AfArray* AfArray::randn(int rows, int cols, Symbol data_type) {
+AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
-  array afarray = af::randu(cols, rows, type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  array afarray = af::randu(tdims, type);
   return new AfArray(afarray);
 }
 
