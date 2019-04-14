@@ -13,28 +13,45 @@ AfArray::AfArray(int rows, int cols, Array elements, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
 
   dim4 tdims(rows, cols, 1, 1);
-  int count = elements.size();
 
-  if(type == f32) {
-    float casted_elements[count];
-    for(int i = 0; i < count; i++) {
-      casted_elements[i] = from_ruby<float>(elements[i]);
-    };
-    af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
-  } else if(type == f64) {
-    double casted_elements[count];
-    for(int i = 0; i < count; i++) {
-      casted_elements[i] = from_ruby<double>(elements[i]);
-    };
-    af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
-  } else if(type == u16 or type == u32 or type == u64 or type == u8 or type == s16 or type == s32 or type == s64) {
-    long int casted_elements[count];
-    for(int i = 0; i < count; i++) {
-      casted_elements[i] = from_ruby<long int>(elements[i]);
-    };
-    af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  switch (type) {
+    case f32: create_internal_array<float>(afarray, elements, tdims, type); break;
+    case c32: create_internal_array_complex<cfloat>(afarray, elements, tdims, type); break;
+    case f64: create_internal_array<double>(afarray, elements, tdims, type); break;
+    case c64: create_internal_array_complex<cdouble>(afarray, elements, tdims, type); break;
+    case b8:  create_internal_array<char>(afarray, elements, tdims, type); break;
+    case s32: create_internal_array<int>(afarray, elements, tdims, type); break;
+    case u32: create_internal_array<uint>(afarray, elements, tdims, type); break;
+    case u8:  create_internal_array<uchar>(afarray, elements, tdims, type); break;
+    case s64: create_internal_array<intl>(afarray, elements, tdims, type); break;
+    case u64: create_internal_array<uintl>(afarray, elements, tdims, type); break;
+    case s16: create_internal_array<short>(afarray, elements, tdims, type); break;
+    case u16: create_internal_array<ushort>(afarray, elements, tdims, type); break;
   }
+}
 
+template<typename T>
+void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  int count = elements.size();
+  T casted_elements[count];
+  for(int i = 0; i < count; i++) {
+    casted_elements[i] = from_ruby<T>(elements[i]);
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}
+
+template<typename T>
+void AfArray::create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  int count = elements.size();
+  T casted_elements[count];
+  for(int i = 0; i < count; i++) {
+    Object element = Object(elements[i]);
+    double real = from_ruby<double>(element.call("real"));
+    double imaginary = from_ruby<double>(element.call("imaginary"));
+    casted_elements[i] = T(real, imaginary);
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
   this->set_c_array(afarray);
 }
 

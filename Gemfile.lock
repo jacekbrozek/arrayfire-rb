@@ -6,13 +6,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    backports (3.13.0)
-    daru (0.2.1)
-      backports
-      packable (~> 1.3.9)
     minitest (5.11.3)
-    packable (1.3.10)
-      backports
     rake (10.5.0)
     rake-compiler (1.0.7)
       rake
@@ -24,7 +18,6 @@ PLATFORMS
 DEPENDENCIES
   arrayfire!
   bundler (~> 1.16)
-  daru
   minitest (~> 5.0)
   rake (~> 10.0)
   rake-compiler

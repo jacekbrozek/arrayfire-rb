@@ -3,6 +3,8 @@
 using namespace Rice;
 using namespace af;
 
+using uchar = unsigned char;
+
 class AfArray {
   private:
     array c_array;
@@ -23,4 +25,6 @@ class AfArray {
     void set_c_array(const array& afarray);
     AfArray* multiply_internal(AfArray other);
     AfArray* multiply_internal(int value);
+    template<typename T> void create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type);
+    template<typename T> void create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type);
 };
