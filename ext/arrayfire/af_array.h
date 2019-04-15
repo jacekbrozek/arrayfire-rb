@@ -3,8 +3,6 @@
 using namespace Rice;
 using namespace af;
 
-using uchar = unsigned char;
-
 class AfArray {
   private:
     array c_array;

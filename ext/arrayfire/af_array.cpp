@@ -18,7 +18,6 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
     case b8:  create_internal_array<char>(afarray, elements, tdims, type); break;
     case s32: create_internal_array<int>(afarray, elements, tdims, type); break;
     case u32: create_internal_array<uint>(afarray, elements, tdims, type); break;
-    case u8:  create_internal_array<uchar>(afarray, elements, tdims, type); break;
     case s64: create_internal_array_long<intl>(afarray, elements, tdims, type); break;
     case u64: create_internal_array_long<uintl>(afarray, elements, tdims, type); break;
     case s16: create_internal_array<short>(afarray, elements, tdims, type); break;
