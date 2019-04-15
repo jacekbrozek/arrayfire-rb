@@ -19,19 +19,20 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
     case s32: create_internal_array<int>(afarray, elements, tdims, type); break;
     case u32: create_internal_array<uint>(afarray, elements, tdims, type); break;
     case u8:  create_internal_array<uchar>(afarray, elements, tdims, type); break;
-    case s64: create_internal_array<intl>(afarray, elements, tdims, type); break;
-    case u64: create_internal_array<uintl>(afarray, elements, tdims, type); break;
+    case s64: create_internal_array_long<intl>(afarray, elements, tdims, type); break;
+    case u64: create_internal_array_long<uintl>(afarray, elements, tdims, type); break;
     case s16: create_internal_array<short>(afarray, elements, tdims, type); break;
     case u16: create_internal_array<ushort>(afarray, elements, tdims, type); break;
   }
 }
 
 template<typename T>
-void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type) {
+void AfArray::create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type) {
   size_t count = elements.size();
   T casted_elements[count];
   for(size_t i = 0; i < count; i++) {
-    casted_elements[i] = from_ruby<T>(elements[i]);
+    Object element = Object(elements[i]);
+    casted_elements[i] = FIX2LONG(element.value());
   };
   af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
   this->set_c_array(afarray);
