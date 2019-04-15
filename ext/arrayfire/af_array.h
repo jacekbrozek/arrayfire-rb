@@ -18,6 +18,10 @@ class AfArray {
     static AfArray* randn(Array dimensions, Symbol data_type);
     static void set_seed(int seed);
     static int get_seed();
+    AfArray* row(int index);
+    AfArray* rows(int first, int last);
+    AfArray* col(int index);
+    AfArray* cols(int first, int last);
 
   private:
     array get_c_array();

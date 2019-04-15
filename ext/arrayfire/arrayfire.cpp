@@ -19,7 +19,11 @@ extern "C" void Init_arrayfire() {
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
-    .define_method("+", &AfArray::add);
+    .define_method("+", &AfArray::add)
+    .define_method("row", &AfArray::row)
+    .define_method("rows", &AfArray::rows)
+    .define_method("col", &AfArray::col)
+    .define_method("cols", &AfArray::cols);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

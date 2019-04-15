@@ -105,6 +105,32 @@ int AfArray::get_seed() {
   return ULL2NUM(getSeed());
 }
 
+AfArray* AfArray::row(int index) {
+  array afarray = this->c_array.row(index);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::rows(int first, int last) {
+  array afarray = this->c_array.rows(first, last);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::col(int index) {
+  array afarray = this->c_array.col(index);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::cols(int first, int last) {
+  array afarray = this->c_array.cols(first, last);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+// Private
+
 array AfArray::get_c_array() {
   return this->c_array;
 }
