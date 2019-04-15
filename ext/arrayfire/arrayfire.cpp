@@ -15,6 +15,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("randu", &AfArray::randu)
     .define_singleton_method("randn", &AfArray::randu)
     .define_singleton_method("get_seed", &AfArray::get_seed)
+    .define_singleton_method("set_seed", &AfArray::set_seed)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)

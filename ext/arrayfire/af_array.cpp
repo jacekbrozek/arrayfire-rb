@@ -99,11 +99,11 @@ AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
 }
 
 void AfArray::set_seed(int seed) {
-  setSeed(from_ruby<uintl>(seed));
+  setSeed(FIX2LONG(seed));
 }
 
 int AfArray::get_seed() {
-  return to_ruby(getSeed());
+  return LONG2FIX(getSeed());
 }
 
 array AfArray::get_c_array() {
