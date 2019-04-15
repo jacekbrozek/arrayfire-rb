@@ -26,15 +26,6 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
   }
 }
 
-dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
-  size_t count = dimensions.size();
-  dim4 tdims = dim4(1, 1, 1, 1);
-  for (size_t index = 0; index < count; index++) {
-    tdims[index] = from_ruby<uint>(dimensions[index]);
-  }
-  return tdims;
-}
-
 template<typename T>
 void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type) {
   size_t count = elements.size();
@@ -106,6 +97,14 @@ AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
   return new AfArray(afarray);
 }
 
+void AfArray::set_seed(int seed) {
+  setSeed(from_ruby<uintl>(seed));
+}
+
+int AfArray::get_seed() {
+  return to_ruby(getSeed());
+}
+
 array AfArray::get_c_array() {
   return this->c_array;
 }
@@ -117,3 +116,13 @@ void AfArray::set_c_array(af_array afarray) {
 void AfArray::set_c_array(const array& afarray) {
   this->c_array = afarray;
 }
+
+dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
+  size_t count = dimensions.size();
+  dim4 tdims = dim4(1, 1, 1, 1);
+  for (size_t index = 0; index < count; index++) {
+    tdims[index] = from_ruby<uint>(dimensions[index]);
+  }
+  return tdims;
+}
+

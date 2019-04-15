@@ -18,6 +18,8 @@ class AfArray {
     AfArray* div(AfArray other);
     static AfArray* randu(Array dimensions, Symbol data_type);
     static AfArray* randn(Array dimensions, Symbol data_type);
+    void AfArray::set_seed(int seed);
+    int AfArray::get_seed(int seed);
 
   private:
     array get_c_array();
