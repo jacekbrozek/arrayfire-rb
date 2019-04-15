@@ -98,11 +98,11 @@ AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
 }
 
 void AfArray::set_seed(int seed) {
-  setSeed(FIX2LONG(seed));
+  setSeed(NUM2ULL(seed));
 }
 
 int AfArray::get_seed() {
-  return LONG2FIX(getSeed());
+  return ULL2NUM(getSeed());
 }
 
 array AfArray::get_c_array() {
