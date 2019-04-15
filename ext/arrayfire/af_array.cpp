@@ -1,5 +1,7 @@
 #include "af_array.h"
 
+// Constructor
+
 AfArray::AfArray(array afarray) {
   this->set_c_array(afarray);
 }
@@ -25,31 +27,7 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
   }
 }
 
-template<typename T>
-void AfArray::create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type) {
-  size_t count = elements.size();
-  T casted_elements[count];
-  for(size_t i = 0; i < count; i++) {
-    Object element = Object(elements[i]);
-    casted_elements[i] = FIX2LONG(element.value());
-  };
-  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
-  this->set_c_array(afarray);
-}
-
-template<typename T>
-void AfArray::create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type) {
-  size_t count = elements.size();
-  T casted_elements[count];
-  for(size_t i = 0; i < count; i++) {
-    Object element = Object(elements[i]);
-    double real = from_ruby<double>(element.call("real"));
-    double imaginary = from_ruby<double>(element.call("imaginary"));
-    casted_elements[i] = T(real, imaginary);
-  };
-  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
-  this->set_c_array(afarray);
-}
+// Public
 
 void AfArray::print() {
   af_print(this->c_array);
@@ -129,6 +107,18 @@ AfArray* AfArray::cols(int first, int last) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::slice(int index) {
+  array afarray = this->c_array.slice(index);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::slices(int first, int last) {
+  array afarray = this->c_array.slices(first, last);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {
@@ -152,3 +142,39 @@ dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
   return tdims;
 }
 
+template<typename T>
+void AfArray::create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  size_t count = elements.size();
+  T casted_elements[count];
+  for(size_t i = 0; i < count; i++) {
+    casted_elements[i] = from_ruby<T>(elements[i]);
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}
+
+template<typename T>
+void AfArray::create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  size_t count = elements.size();
+  T casted_elements[count];
+  for(size_t i = 0; i < count; i++) {
+    Object element = Object(elements[i]);
+    casted_elements[i] = FIX2LONG(element.value());
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}
+
+template<typename T>
+void AfArray::create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  size_t count = elements.size();
+  T casted_elements[count];
+  for(size_t i = 0; i < count; i++) {
+    Object element = Object(elements[i]);
+    double real = from_ruby<double>(element.call("real"));
+    double imaginary = from_ruby<double>(element.call("imaginary"));
+    casted_elements[i] = T(real, imaginary);
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}

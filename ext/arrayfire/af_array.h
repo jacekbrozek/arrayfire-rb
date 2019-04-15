@@ -22,6 +22,8 @@ class AfArray {
     AfArray* rows(int first, int last);
     AfArray* col(int index);
     AfArray* cols(int first, int last);
+    AfArray* slice(int index);
+    AfArray* slices(int first, int last);
 
   private:
     array get_c_array();

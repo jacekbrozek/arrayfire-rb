@@ -23,7 +23,9 @@ extern "C" void Init_arrayfire() {
     .define_method("row", &AfArray::row)
     .define_method("rows", &AfArray::rows)
     .define_method("col", &AfArray::col)
-    .define_method("cols", &AfArray::cols);
+    .define_method("cols", &AfArray::cols)
+    .define_method("slice", &AfArray::slice)
+    .define_method("slices", &AfArray::slices);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
