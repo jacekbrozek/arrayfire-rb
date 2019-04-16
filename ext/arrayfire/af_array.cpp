@@ -145,6 +145,31 @@ AfArray* AfArray::slices(int first, int last) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::lookup(Array idx) {
+  af::array indices(idx.size(), ruby_array_to_ints(idx));
+  array afarray = af::lookup(this->c_array, indices);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::real() {
+  array afarray = af::real(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::imag() {
+  array afarray = af::imag(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::conjg() {
+  array afarray = af::conjg(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {
@@ -166,6 +191,15 @@ dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
     tdims[index] = from_ruby<uint>(dimensions[index]);
   }
   return tdims;
+}
+
+int* AfArray::ruby_array_to_ints(Array rb_array) {
+  size_t count = rb_array.size();
+  int array[count];
+  for (size_t index = 0; index < count; index++) {
+    array[index] = from_ruby<int>(rb_array[index]);
+  }
+  return array;
 }
 
 template<typename T>

@@ -25,7 +25,11 @@ extern "C" void Init_arrayfire() {
     .define_method("col", &AfArray::col)
     .define_method("cols", &AfArray::cols)
     .define_method("slice", &AfArray::slice)
-    .define_method("slices", &AfArray::slices);
+    .define_method("slices", &AfArray::slices)
+    .define_method("lookup", &AfArray::lookup)
+    .define_method("real", &AfArray::real)
+    .define_method("imag", &AfArray::imag)
+    .define_method("conjg", &AfArray::conjg);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

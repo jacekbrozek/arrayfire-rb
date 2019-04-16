@@ -24,10 +24,15 @@ class AfArray {
     AfArray* cols(int first, int last);
     AfArray* slice(int index);
     AfArray* slices(int first, int last);
+    AfArray* lookup(Array idx);
+    AfArray* real();
+    AfArray* imag();
+    AfArray* conjg();
 
   private:
     array get_c_array();
     static dim4 ruby_array_to_dimensions(Array dimensions);
+    static int* ruby_array_to_ints(Array rb_array);
     void set_c_array(af_array afarray);
     void set_c_array(const array& afarray);
     AfArray* multiply_internal(AfArray other);
