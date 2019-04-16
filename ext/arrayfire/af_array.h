@@ -12,8 +12,8 @@ class AfArray {
     AfArray(Array dimensions, Array elements, Symbol data_type);
     void print();
     AfArray* multiply(Object other);
-    AfArray* add(AfArray other);
-    AfArray* div(AfArray other);
+    AfArray* add(Object other);
+    AfArray* div(Object other);
     static AfArray* randu(Array dimensions, Symbol data_type);
     static AfArray* randn(Array dimensions, Symbol data_type);
     static void set_seed(int seed);
@@ -32,6 +32,10 @@ class AfArray {
     void set_c_array(const array& afarray);
     AfArray* multiply_internal(AfArray other);
     AfArray* multiply_internal(int value);
+    AfArray* add_internal(AfArray other);
+    AfArray* add_internal(int value);
+    AfArray* div_internal(AfArray other);
+    AfArray* div_internal(int value);
     template<typename T> void create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type);

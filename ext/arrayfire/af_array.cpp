@@ -51,13 +51,39 @@ AfArray* AfArray::multiply_internal(int value) {
   return new AfArray(afarray);
 }
 
-AfArray* AfArray::add(AfArray other) {
+AfArray* AfArray::add(Object other) {
+  try {
+    return AfArray::add_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::add_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::add_internal(AfArray other) {
   array afarray = this->c_array + other.get_c_array();
   return new AfArray(afarray);
 }
 
-AfArray* AfArray::div(AfArray other) {
+AfArray* AfArray::add_internal(int value) {
+  array afarray = this->c_array + value;
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::div(Object other) {
+  try {
+    return AfArray::div_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::div_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::div_internal(AfArray other) {
   array afarray = this->c_array / other.get_c_array();
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::div_internal(int value) {
+  array afarray = this->c_array / value;
   return new AfArray(afarray);
 }
 
