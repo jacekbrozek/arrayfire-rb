@@ -51,6 +51,24 @@ AfArray* AfArray::multiply_internal(int value) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::multiply_assign(Object other) {
+  try {
+    return AfArray::multiply_assign_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::multiply_assign_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::multiply_assign_internal(AfArray other) {
+  this->c_array *= other.get_c_array();
+  return this;
+}
+
+AfArray* AfArray::multiply_assign_internal(int value) {
+  this->c_array *= value;
+  return this;
+}
+
 AfArray* AfArray::add(Object other) {
   try {
     return AfArray::add_internal(from_ruby<AfArray>(other));
@@ -69,6 +87,24 @@ AfArray* AfArray::add_internal(int value) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::add_assign(Object other) {
+  try {
+    return AfArray::add_assign_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::add_assign_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::add_assign_internal(AfArray other) {
+  this->c_array += other.get_c_array();
+  return this;
+}
+
+AfArray* AfArray::add_assign_internal(int value) {
+  this->c_array += value;
+  return this;
+}
+
 AfArray* AfArray::div(Object other) {
   try {
     return AfArray::div_internal(from_ruby<AfArray>(other));
@@ -85,6 +121,60 @@ AfArray* AfArray::div_internal(AfArray other) {
 AfArray* AfArray::div_internal(int value) {
   array afarray = this->c_array / value;
   return new AfArray(afarray);
+}
+
+AfArray* AfArray::div_assign(Object other) {
+  try {
+    return AfArray::div_assign_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::div_assign_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::div_assign_internal(AfArray other) {
+  this->c_array /= other.get_c_array();
+  return this;
+}
+
+AfArray* AfArray::div_assign_internal(int value) {
+  this->c_array /= value;
+  return this;
+}
+
+AfArray* AfArray::sub(Object other) {
+  try {
+    return AfArray::sub_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::sub_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::sub_internal(AfArray other) {
+  array afarray = this->c_array - other.get_c_array();
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::sub_internal(int value) {
+  array afarray = this->c_array - value;
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::sub_assign(Object other) {
+  try {
+    return AfArray::sub_assign_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::sub_assign_internal(from_ruby<int>(other));
+  }
+}
+
+AfArray* AfArray::sub_assign_internal(AfArray other) {
+  this->c_array -= other.get_c_array();
+  return this;
+}
+
+AfArray* AfArray::sub_assign_internal(int value) {
+  this->c_array -= value;
+  return this;
 }
 
 AfArray* AfArray::randu(Array dimensions, Symbol data_type) {

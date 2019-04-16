@@ -20,6 +20,7 @@ extern "C" void Init_arrayfire() {
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
     .define_method("+", &AfArray::add)
+    .define_method("-", &AfArray::sub)
     .define_method("row", &AfArray::row)
     .define_method("rows", &AfArray::rows)
     .define_method("col", &AfArray::col)
@@ -29,7 +30,11 @@ extern "C" void Init_arrayfire() {
     .define_method("lookup", &AfArray::lookup)
     .define_method("real", &AfArray::real)
     .define_method("imag", &AfArray::imag)
-    .define_method("conjg", &AfArray::conjg);
+    .define_method("conjg", &AfArray::conjg)
+    .define_method("*=", &AfArray::multiply_assign)
+    .define_method("+=", &AfArray::add_assign)
+    .define_method("/=", &AfArray::div_assign)
+    .define_method("-=", &AfArray::sub_assign);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
