@@ -17,6 +17,8 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("get_seed", &AfArray::get_seed)
     .define_singleton_method("set_seed", &AfArray::set_seed)
     .define_singleton_method("constant", &AfArray::constant)
+    .define_singleton_method("identity", &AfArray::identity)
+    .define_singleton_method("iota_c", &AfArray::iota)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)

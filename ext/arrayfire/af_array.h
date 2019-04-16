@@ -35,6 +35,8 @@ class AfArray {
     AfArray* imag();
     AfArray* conjg();
     AfArray* diag(int num = 0, bool extract = true);
+    static AfArray* identity(Array dimensions, Symbol data_type);
+    static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
   private:
     array get_c_array();

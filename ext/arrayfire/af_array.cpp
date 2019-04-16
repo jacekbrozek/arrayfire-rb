@@ -304,6 +304,21 @@ AfArray* AfArray::diag(int num, bool extract) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::identity(Array dimensions, Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  array afarray = af::identity(tdims, type);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::iota(Array dimensions, Array tile_dimensions, Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  dim4 tile_dims = ruby_array_to_dimensions(tile_dimensions);
+  array afarray = af::iota(tdims, tile_dims, type);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {
