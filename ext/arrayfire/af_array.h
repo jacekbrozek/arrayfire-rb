@@ -21,6 +21,7 @@ class AfArray {
     AfArray* sub_assign(Object other);
     static AfArray* randu(Array dimensions, Symbol data_type);
     static AfArray* randn(Array dimensions, Symbol data_type);
+    static AfArray* constant(Object value, Array dimensions, Symbol data_type);
     static void set_seed(int seed);
     static int get_seed();
     AfArray* row(int index);
@@ -33,6 +34,7 @@ class AfArray {
     AfArray* real();
     AfArray* imag();
     AfArray* conjg();
+    AfArray* diag(int num = 0, bool extract = true);
 
   private:
     array get_c_array();
@@ -59,4 +61,7 @@ class AfArray {
     template<typename T> void create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type);
+    template<typename T> static T cast_ruby_to(Object ruby_object);
+    template<typename T> static T cast_ruby_to_long(Object ruby_object);
+    template<typename T> static T cast_ruby_to_complex(Object ruby_object);
 };

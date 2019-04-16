@@ -191,6 +191,44 @@ AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::constant(Object value, Array dimensions, Symbol data_type) {
+  array afarray = 0;
+  dtype type = ruby_sym_to_dtype(data_type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  switch (type) {
+    case f32: afarray = af::constant(cast_ruby_to<float>(value), tdims, type); break;
+    case c32: afarray = af::constant(cast_ruby_to_complex<cfloat>(value), tdims, type); break;
+    case f64: afarray = af::constant(cast_ruby_to<double>(value), tdims, type); break;
+    case c64: afarray = af::constant(cast_ruby_to_complex<cdouble>(value), tdims, type); break;
+    case b8:  afarray = af::constant(cast_ruby_to<char>(value), tdims, type); break;
+    case s32: afarray = af::constant(cast_ruby_to<int>(value), tdims, type); break;
+    case u32: afarray = af::constant(cast_ruby_to<uint>(value), tdims, type); break;
+    case s64: afarray = af::constant(cast_ruby_to_long<intl>(value), tdims, type); break;
+    case u64: afarray = af::constant(cast_ruby_to_long<uintl>(value), tdims, type); break;
+    case s16: afarray = af::constant(cast_ruby_to<short>(value), tdims, type); break;
+    case u16: afarray = af::constant(cast_ruby_to<ushort>(value), tdims, type); break;
+  }
+
+  return new AfArray(afarray);
+}
+
+template<typename T>
+T AfArray::cast_ruby_to(Object ruby_object) {
+  return from_ruby<T>(ruby_object);
+}
+
+template<typename T>
+T AfArray::cast_ruby_to_long(Object ruby_object) {
+  return FIX2LONG(ruby_object.value());
+}
+
+template<typename T>
+T AfArray::cast_ruby_to_complex(Object ruby_object) {
+  double real = from_ruby<double>(ruby_object.call("real"));
+  double imaginary = from_ruby<double>(ruby_object.call("imaginary"));
+  return T(real, imaginary);
+}
+
 void AfArray::set_seed(int seed) {
   setSeed(NUM2ULL(seed));
 }
@@ -256,6 +294,12 @@ AfArray* AfArray::imag() {
 
 AfArray* AfArray::conjg() {
   array afarray = af::conjg(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::diag(int num, bool extract) {
+  array afarray = af::diag(this->c_array, num, extract);
   af_print(afarray);
   return new AfArray(afarray);
 }

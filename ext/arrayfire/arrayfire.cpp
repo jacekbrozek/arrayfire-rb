@@ -16,6 +16,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("randn", &AfArray::randu)
     .define_singleton_method("get_seed", &AfArray::get_seed)
     .define_singleton_method("set_seed", &AfArray::set_seed)
+    .define_singleton_method("constant", &AfArray::constant)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
@@ -34,7 +35,8 @@ extern "C" void Init_arrayfire() {
     .define_method("*=", &AfArray::multiply_assign)
     .define_method("+=", &AfArray::add_assign)
     .define_method("/=", &AfArray::div_assign)
-    .define_method("-=", &AfArray::sub_assign);
+    .define_method("-=", &AfArray::sub_assign)
+    .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
