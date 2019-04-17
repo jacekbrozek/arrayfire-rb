@@ -408,6 +408,12 @@ size_t AfArray::bytes() {
   return this->c_array.bytes();
 }
 
+AfArray* AfArray::copy() {
+  array afarray = this->c_array.copy();
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {

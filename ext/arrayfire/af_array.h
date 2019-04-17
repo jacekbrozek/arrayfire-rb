@@ -46,6 +46,7 @@ class AfArray {
     AfArray* is_zero();
     size_t allocated();
     size_t bytes();
+    AfArray* copy();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
