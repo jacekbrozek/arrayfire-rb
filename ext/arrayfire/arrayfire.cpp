@@ -47,7 +47,8 @@ extern "C" void Init_arrayfire() {
     .define_method("is_nan", &AfArray::is_nan)
     .define_method("is_inf", &AfArray::is_inf)
     .define_method("is_zero", &AfArray::is_zero)
-    .define_method("allocated", &AfArray::allocated);
+    .define_method("allocated", &AfArray::allocated)
+    .define_method("bytes", &AfArray::bytes);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

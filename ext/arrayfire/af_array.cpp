@@ -404,6 +404,10 @@ size_t AfArray::allocated() {
   return this->c_array.allocated();
 }
 
+size_t AfArray::bytes() {
+  return this->c_array.bytes();
+}
+
 // Private
 
 array AfArray::get_c_array() {
