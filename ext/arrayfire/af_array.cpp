@@ -25,6 +25,8 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
     case s16: create_internal_array<short>(afarray, elements, tdims, type); break;
     case u16: create_internal_array<ushort>(afarray, elements, tdims, type); break;
   }
+
+  this->print();
 }
 
 // Public
@@ -43,11 +45,13 @@ AfArray* AfArray::multiply(Object other) {
 
 AfArray* AfArray::multiply_internal(AfArray other) {
   array afarray = this->c_array * other.get_c_array();
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
 AfArray* AfArray::multiply_internal(int value) {
   array afarray = this->c_array * value;
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -61,11 +65,13 @@ AfArray* AfArray::multiply_assign(Object other) {
 
 AfArray* AfArray::multiply_assign_internal(AfArray other) {
   this->c_array *= other.get_c_array();
+  this->print();
   return this;
 }
 
 AfArray* AfArray::multiply_assign_internal(int value) {
   this->c_array *= value;
+  this->print();
   return this;
 }
 
@@ -79,11 +85,13 @@ AfArray* AfArray::add(Object other) {
 
 AfArray* AfArray::add_internal(AfArray other) {
   array afarray = this->c_array + other.get_c_array();
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
 AfArray* AfArray::add_internal(int value) {
   array afarray = this->c_array + value;
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -97,11 +105,13 @@ AfArray* AfArray::add_assign(Object other) {
 
 AfArray* AfArray::add_assign_internal(AfArray other) {
   this->c_array += other.get_c_array();
+  this->print();
   return this;
 }
 
 AfArray* AfArray::add_assign_internal(int value) {
   this->c_array += value;
+  this->print();
   return this;
 }
 
@@ -115,11 +125,13 @@ AfArray* AfArray::div(Object other) {
 
 AfArray* AfArray::div_internal(AfArray other) {
   array afarray = this->c_array / other.get_c_array();
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
 AfArray* AfArray::div_internal(int value) {
   array afarray = this->c_array / value;
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -133,11 +145,13 @@ AfArray* AfArray::div_assign(Object other) {
 
 AfArray* AfArray::div_assign_internal(AfArray other) {
   this->c_array /= other.get_c_array();
+  this->print();
   return this;
 }
 
 AfArray* AfArray::div_assign_internal(int value) {
   this->c_array /= value;
+  this->print();
   return this;
 }
 
@@ -151,11 +165,13 @@ AfArray* AfArray::sub(Object other) {
 
 AfArray* AfArray::sub_internal(AfArray other) {
   array afarray = this->c_array - other.get_c_array();
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
 AfArray* AfArray::sub_internal(int value) {
   array afarray = this->c_array - value;
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -169,11 +185,13 @@ AfArray* AfArray::sub_assign(Object other) {
 
 AfArray* AfArray::sub_assign_internal(AfArray other) {
   this->c_array -= other.get_c_array();
+  this->print();
   return this;
 }
 
 AfArray* AfArray::sub_assign_internal(int value) {
   this->c_array -= value;
+  this->print();
   return this;
 }
 
@@ -181,6 +199,7 @@ AfArray* AfArray::randu(Array dimensions, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
   dim4 tdims = ruby_array_to_dimensions(dimensions);
   array afarray = af::randu(tdims, type);
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -188,6 +207,19 @@ AfArray* AfArray::randn(Array dimensions, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
   dim4 tdims = ruby_array_to_dimensions(dimensions);
   array afarray = af::randu(tdims, type);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::lower(bool is_unit_diag) {
+  array afarray = af::lower(this->c_array, is_unit_diag);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::upper(bool is_unit_diag) {
+  array afarray = af::upper(this->c_array, is_unit_diag);
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -208,6 +240,16 @@ AfArray* AfArray::constant(Object value, Array dimensions, Symbol data_type) {
     case s16: afarray = af::constant(cast_ruby_to<short>(value), tdims, type); break;
     case u16: afarray = af::constant(cast_ruby_to<ushort>(value), tdims, type); break;
   }
+  af_print(afarray);
+
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::range(int seq_dim, Array dimensions, Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  array afarray = af::range(tdims, seq_dim, type);
+  af_print(afarray);
 
   return new AfArray(afarray);
 }
@@ -308,6 +350,7 @@ AfArray* AfArray::identity(Array dimensions, Symbol data_type) {
   dtype type = ruby_sym_to_dtype(data_type);
   dim4 tdims = ruby_array_to_dimensions(dimensions);
   array afarray = af::identity(tdims, type);
+  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -316,6 +359,7 @@ AfArray* AfArray::iota(Array dimensions, Array tile_dimensions, Symbol data_type
   dim4 tdims = ruby_array_to_dimensions(dimensions);
   dim4 tile_dims = ruby_array_to_dimensions(tile_dimensions);
   array afarray = af::iota(tdims, tile_dims, type);
+  af_print(afarray);
   return new AfArray(afarray);
 }
 

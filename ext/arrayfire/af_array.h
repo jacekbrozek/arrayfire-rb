@@ -22,6 +22,7 @@ class AfArray {
     static AfArray* randu(Array dimensions, Symbol data_type);
     static AfArray* randn(Array dimensions, Symbol data_type);
     static AfArray* constant(Object value, Array dimensions, Symbol data_type);
+    static AfArray* range(int seq_dim, Array dimensions, Symbol data_type);
     static void set_seed(int seed);
     static int get_seed();
     AfArray* row(int index);
@@ -35,6 +36,8 @@ class AfArray {
     AfArray* imag();
     AfArray* conjg();
     AfArray* diag(int num = 0, bool extract = true);
+    AfArray* lower(bool is_unit_diag = false);
+    AfArray* upper(bool is_unit_diag = false);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

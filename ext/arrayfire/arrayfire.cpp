@@ -19,6 +19,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("constant", &AfArray::constant)
     .define_singleton_method("identity", &AfArray::identity)
     .define_singleton_method("iota_c", &AfArray::iota)
+    .define_singleton_method("range", &AfArray::range)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
@@ -38,7 +39,9 @@ extern "C" void Init_arrayfire() {
     .define_method("+=", &AfArray::add_assign)
     .define_method("/=", &AfArray::div_assign)
     .define_method("-=", &AfArray::sub_assign)
-    .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true));
+    .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true))
+    .define_method("lower", &AfArray::lower, (Arg("is_unit_diag") = false))
+    .define_method("upper", &AfArray::upper, (Arg("is_unit_diag") = false));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
