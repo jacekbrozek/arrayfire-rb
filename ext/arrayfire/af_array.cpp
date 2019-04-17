@@ -418,6 +418,10 @@ Array AfArray::dims() {
   return dimensions_to_ruby_array(this->c_array.dims());
 }
 
+int AfArray::elements() {
+  return this->c_array.elements();
+}
+
 // Private
 
 array AfArray::get_c_array() {

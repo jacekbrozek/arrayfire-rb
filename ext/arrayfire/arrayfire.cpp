@@ -50,7 +50,8 @@ extern "C" void Init_arrayfire() {
     .define_method("allocated", &AfArray::allocated)
     .define_method("bytes", &AfArray::bytes)
     .define_method("copy", &AfArray::copy)
-    .define_method("dims", &AfArray::dims);
+    .define_method("dims", &AfArray::dims)
+    .define_method("elements", &AfArray::elements);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
