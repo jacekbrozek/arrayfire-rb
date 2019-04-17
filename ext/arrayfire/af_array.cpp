@@ -438,6 +438,10 @@ AfArray* AfArray::transposed() {
   return new AfArray(afarray);
 }
 
+Symbol AfArray::type() {
+  return dtype_to_ruby_sym(this->c_array.type());
+}
+
 // Private
 
 array AfArray::get_c_array() {

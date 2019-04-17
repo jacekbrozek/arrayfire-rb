@@ -54,7 +54,8 @@ extern "C" void Init_arrayfire() {
     .define_method("elements", &AfArray::elements)
     .define_method("H", &AfArray::H)
     .define_method("T", &AfArray::transposed)
-    .define_method("numdims", &AfArray::numdims);
+    .define_method("numdims", &AfArray::numdims)
+    .define_method("type", &AfArray::type);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
@@ -71,6 +72,24 @@ dtype ruby_sym_to_dtype(Symbol data_type) {
   dtypes.insert(std::make_pair("u64", u64));
   dtypes.insert(std::make_pair("s16", s16));
   dtypes.insert(std::make_pair("u16", u16));
+
+  return dtypes.find(data_type)->second;
+}
+
+Symbol dtype_to_ruby_sym(dtype data_type) {
+  std::map<dtype, Symbol> dtypes;
+  dtypes.insert(std::make_pair(f32, "f32"));
+  dtypes.insert(std::make_pair(c32, "c32"));
+  dtypes.insert(std::make_pair(f64, "f64"));
+  dtypes.insert(std::make_pair(c64, "c64"));
+  dtypes.insert(std::make_pair( b8, "b8"));
+  dtypes.insert(std::make_pair(s32, "s32"));
+  dtypes.insert(std::make_pair(u32, "u32"));
+  dtypes.insert(std::make_pair( u8, "u8"));
+  dtypes.insert(std::make_pair(s64, "s64"));
+  dtypes.insert(std::make_pair(u64, "u64"));
+  dtypes.insert(std::make_pair(s16, "s16"));
+  dtypes.insert(std::make_pair(u16, "u16"));
 
   return dtypes.find(data_type)->second;
 }
