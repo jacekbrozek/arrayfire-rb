@@ -381,6 +381,18 @@ AfArray* AfArray::is_nan() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::is_inf() {
+  array afarray = af::isInf(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::is_zero() {
+  array afarray = af::iszero(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {
