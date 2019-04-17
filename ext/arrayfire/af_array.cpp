@@ -422,6 +422,12 @@ int AfArray::elements() {
   return this->c_array.elements();
 }
 
+AfArray* AfArray::H() {
+  array afarray = this->c_array.H();
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {

@@ -49,6 +49,7 @@ class AfArray {
     AfArray* copy();
     Array dims();
     int elements();
+    AfArray* H();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
