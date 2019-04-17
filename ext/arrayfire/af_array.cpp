@@ -459,12 +459,69 @@ Object AfArray::scalar() {
   }
 }
 
+bool AfArray::isbool() {
+  return this->c_array.isbool();
+}
+
+bool AfArray::iscolumn() {
+  return this->c_array.iscolumn();
+}
+
+bool AfArray::iscomplex() {
+  return this->c_array.iscomplex();
+}
+
+bool AfArray::isdouble() {
+  return this->c_array.isdouble();
+}
+
+bool AfArray::isempty() {
+  return this->c_array.isempty();
+}
+
+bool AfArray::isfloating() {
+  return this->c_array.isfloating();
+}
+
+bool AfArray::isinteger() {
+  return this->c_array.isinteger();
+}
+
+bool AfArray::isreal() {
+  return this->c_array.isreal();
+}
+
+bool AfArray::isrealfloating() {
+  return this->c_array.isrealfloating();
+}
+
+bool AfArray::isrow() {
+  return this->c_array.isrow();
+}
+
+bool AfArray::isscalar() {
+  return this->c_array.isscalar();
+}
+
+bool AfArray::issingle() {
+  return this->c_array.issingle();
+}
+
+bool AfArray::issparse() {
+  return this->c_array.issparse();
+}
+
+bool AfArray::isvector() {
+  return this->c_array.isvector();
+}
+
+
+// Private
+
 template<typename T>
 VALUE AfArray::complex_to_ruby(T complex) {
   return rb_Complex(to_ruby<double>(complex.real), to_ruby<double>(complex.imag));
 }
-
-// Private
 
 array AfArray::get_c_array() {
   return this->c_array;

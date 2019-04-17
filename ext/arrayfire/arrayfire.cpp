@@ -56,7 +56,21 @@ extern "C" void Init_arrayfire() {
     .define_method("T", &AfArray::transposed)
     .define_method("numdims", &AfArray::numdims)
     .define_method("type", &AfArray::type)
-    .define_method("scalar", &AfArray::scalar);
+    .define_method("scalar", &AfArray::scalar)
+    .define_method("bool?", &AfArray::isbool)
+    .define_method("column?", &AfArray::iscolumn)
+    .define_method("complex?", &AfArray::iscomplex)
+    .define_method("double?", &AfArray::isdouble)
+    .define_method("empty?", &AfArray::isempty)
+    .define_method("floating?", &AfArray::isfloating)
+    .define_method("integer?", &AfArray::isinteger)
+    .define_method("real?", &AfArray::isreal)
+    .define_method("real_floating?", &AfArray::isrealfloating)
+    .define_method("row?", &AfArray::isrow)
+    .define_method("scalar?", &AfArray::isscalar)
+    .define_method("single?", &AfArray::issingle)
+    .define_method("sparse?", &AfArray::issparse)
+    .define_method("vector?", &AfArray::isvector);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

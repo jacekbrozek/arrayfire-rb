@@ -54,6 +54,20 @@ class AfArray {
     AfArray* transposed();
     Symbol type();
     Object scalar();
+    bool isbool();
+    bool iscolumn();
+    bool iscomplex();
+    bool isdouble();
+    bool isempty();
+    bool isfloating();
+    bool isinteger();
+    bool isreal();
+    bool isrealfloating();
+    bool isrow();
+    bool isscalar();
+    bool issingle();
+    bool issparse();
+    bool isvector();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
