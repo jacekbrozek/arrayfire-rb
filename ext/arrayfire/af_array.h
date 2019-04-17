@@ -53,6 +53,7 @@ class AfArray {
     AfArray* H();
     AfArray* transposed();
     Symbol type();
+    Object scalar();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
@@ -85,4 +86,5 @@ class AfArray {
     template<typename T> static T cast_ruby_to(Object ruby_object);
     template<typename T> static T cast_ruby_to_long(Object ruby_object);
     template<typename T> static T cast_ruby_to_complex(Object ruby_object);
+    template<typename T> VALUE complex_to_ruby(T complex);
 };

@@ -442,6 +442,28 @@ Symbol AfArray::type() {
   return dtype_to_ruby_sym(this->c_array.type());
 }
 
+Object AfArray::scalar() {
+  dtype type = this->c_array.type();
+  switch (type) {
+    case f32: return to_ruby<float>(this->c_array.scalar<float>()); break;
+    case c32: return complex_to_ruby<cfloat>(this->c_array.scalar<cfloat>()); break;
+    case f64: return to_ruby<double>(this->c_array.scalar<double>()); break;
+    case c64: return complex_to_ruby<cdouble>(this->c_array.scalar<cdouble>()); break;
+    case b8:  return to_ruby<char>(this->c_array.scalar<char>()); break;
+    case s32: return to_ruby<int>(this->c_array.scalar<int>()); break;
+    case u32: return to_ruby<uint>(this->c_array.scalar<uint>()); break;
+    case s64: return LONG2NUM(this->c_array.scalar<intl>()); break;
+    case u64: return ULL2NUM(this->c_array.scalar<uintl>()); break;
+    case s16: return to_ruby<short>(this->c_array.scalar<short>()); break;
+    case u16: return to_ruby<ushort>(this->c_array.scalar<ushort>()); break;
+  }
+}
+
+template<typename T>
+VALUE AfArray::complex_to_ruby(T complex) {
+  return rb_Complex(to_ruby<double>(complex.real), to_ruby<double>(complex.imag));
+}
+
 // Private
 
 array AfArray::get_c_array() {

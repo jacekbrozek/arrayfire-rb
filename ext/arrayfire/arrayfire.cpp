@@ -55,7 +55,8 @@ extern "C" void Init_arrayfire() {
     .define_method("H", &AfArray::H)
     .define_method("T", &AfArray::transposed)
     .define_method("numdims", &AfArray::numdims)
-    .define_method("type", &AfArray::type);
+    .define_method("type", &AfArray::type)
+    .define_method("scalar", &AfArray::scalar);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
