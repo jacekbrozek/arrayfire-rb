@@ -266,6 +266,13 @@ AfArray* AfArray::cast(Symbol data_type) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::as(Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  array afarray = this->c_array.as(type);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 template<typename T>
 T AfArray::cast_ruby_to(Object ruby_object) {
   return from_ruby<T>(ruby_object);

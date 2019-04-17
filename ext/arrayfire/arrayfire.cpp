@@ -43,6 +43,7 @@ extern "C" void Init_arrayfire() {
     .define_method("lower", &AfArray::lower, (Arg("is_unit_diag") = false))
     .define_method("upper", &AfArray::upper, (Arg("is_unit_diag") = false))
     .define_method("cast", &AfArray::cast)
+    .define_method("as", &AfArray::as)
     .define_method("is_nan", &AfArray::is_nan)
     .define_method("is_inf", &AfArray::is_inf)
     .define_method("is_zero", &AfArray::is_zero)
