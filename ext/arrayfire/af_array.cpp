@@ -375,6 +375,12 @@ AfArray* AfArray::iota(Array dimensions, Array tile_dimensions, Symbol data_type
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::is_nan() {
+  array afarray = af::isNaN(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {

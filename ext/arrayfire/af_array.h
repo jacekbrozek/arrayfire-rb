@@ -40,6 +40,7 @@ class AfArray {
     AfArray* lower(bool is_unit_diag = false);
     AfArray* upper(bool is_unit_diag = false);
     AfArray* cast(Symbol data_type);
+    AfArray* is_nan();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
