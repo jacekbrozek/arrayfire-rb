@@ -414,6 +414,10 @@ AfArray* AfArray::copy() {
   return new AfArray(afarray);
 }
 
+Array AfArray::dims() {
+  return dimensions_to_ruby_array(this->c_array.dims());
+}
+
 // Private
 
 array AfArray::get_c_array() {
@@ -435,6 +439,15 @@ dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
     tdims[index] = from_ruby<uint>(dimensions[index]);
   }
   return tdims;
+}
+
+Array AfArray::dimensions_to_ruby_array(dim4 dimensions) {
+  size_t count = dimensions.ndims();
+  Array rb_array = Array();
+  for (size_t index = 0; index < count; index++) {
+    rb_array[index] = to_ruby<uint>(dimensions[index]);
+  }
+  return rb_array;
 }
 
 int* AfArray::ruby_array_to_ints(Array rb_array) {

@@ -47,6 +47,7 @@ class AfArray {
     size_t allocated();
     size_t bytes();
     AfArray* copy();
+    Array dims();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
@@ -54,6 +55,7 @@ class AfArray {
     array get_c_array();
     static dim4 ruby_array_to_dimensions(Array dimensions);
     static int* ruby_array_to_ints(Array rb_array);
+    Array dimensions_to_ruby_array(dim4 dimensions);
     void set_c_array(af_array afarray);
     void set_c_array(const array& afarray);
     AfArray* multiply_internal(AfArray other);
