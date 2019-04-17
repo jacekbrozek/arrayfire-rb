@@ -52,7 +52,8 @@ extern "C" void Init_arrayfire() {
     .define_method("copy", &AfArray::copy)
     .define_method("dims", &AfArray::dims)
     .define_method("elements", &AfArray::elements)
-    .define_method("H", &AfArray::H);
+    .define_method("H", &AfArray::H)
+    .define_method("T", &AfArray::transposed);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

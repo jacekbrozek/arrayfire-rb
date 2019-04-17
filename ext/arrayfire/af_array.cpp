@@ -428,6 +428,12 @@ AfArray* AfArray::H() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::transposed() {
+  array afarray = this->c_array.T();
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 array AfArray::get_c_array() {
