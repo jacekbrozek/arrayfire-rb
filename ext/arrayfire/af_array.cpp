@@ -6,6 +6,10 @@ AfArray::AfArray(array afarray) {
   this->set_c_array(afarray);
 }
 
+AfArray::AfArray(af_array afarray) {
+  this->set_c_array(afarray);
+}
+
 AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
   af_array afarray = 0;
   dtype type = ruby_sym_to_dtype(data_type);
@@ -251,6 +255,14 @@ AfArray* AfArray::range(int seq_dim, Array dimensions, Symbol data_type) {
   array afarray = af::range(tdims, seq_dim, type);
   af_print(afarray);
 
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::cast(Symbol data_type) {
+  dtype type = ruby_sym_to_dtype(data_type);
+  af_array afarray;
+  af_cast(&afarray, this->c_array.get(), type);
+  af_print_array(afarray);
   return new AfArray(afarray);
 }
 

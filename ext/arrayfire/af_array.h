@@ -8,6 +8,7 @@ class AfArray {
     array c_array;
 
   public:
+    AfArray(af_array afarray);
     AfArray(array afarray);
     AfArray(Array dimensions, Array elements, Symbol data_type);
     void print();
@@ -38,6 +39,7 @@ class AfArray {
     AfArray* diag(int num = 0, bool extract = true);
     AfArray* lower(bool is_unit_diag = false);
     AfArray* upper(bool is_unit_diag = false);
+    AfArray* cast(Symbol data_type);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

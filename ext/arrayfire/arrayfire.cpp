@@ -41,7 +41,8 @@ extern "C" void Init_arrayfire() {
     .define_method("-=", &AfArray::sub_assign)
     .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true))
     .define_method("lower", &AfArray::lower, (Arg("is_unit_diag") = false))
-    .define_method("upper", &AfArray::upper, (Arg("is_unit_diag") = false));
+    .define_method("upper", &AfArray::upper, (Arg("is_unit_diag") = false))
+    .define_method("cast", &AfArray::cast);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
