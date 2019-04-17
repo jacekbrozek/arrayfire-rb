@@ -49,6 +49,7 @@ class AfArray {
     AfArray* copy();
     Array dims();
     int elements();
+    int numdims();
     AfArray* H();
     AfArray* transposed();
     static AfArray* identity(Array dimensions, Symbol data_type);

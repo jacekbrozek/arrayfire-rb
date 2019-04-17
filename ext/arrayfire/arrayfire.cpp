@@ -53,7 +53,8 @@ extern "C" void Init_arrayfire() {
     .define_method("dims", &AfArray::dims)
     .define_method("elements", &AfArray::elements)
     .define_method("H", &AfArray::H)
-    .define_method("T", &AfArray::transposed);
+    .define_method("T", &AfArray::transposed)
+    .define_method("numdims", &AfArray::numdims);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

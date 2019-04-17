@@ -422,6 +422,10 @@ int AfArray::elements() {
   return this->c_array.elements();
 }
 
+int AfArray::numdims() {
+  return this->c_array.numdims();
+}
+
 AfArray* AfArray::H() {
   array afarray = this->c_array.H();
   af_print(afarray);
