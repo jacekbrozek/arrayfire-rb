@@ -43,6 +43,7 @@ class AfArray {
     AfArray* is_nan();
     AfArray* is_inf();
     AfArray* is_zero();
+    size_t allocated();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

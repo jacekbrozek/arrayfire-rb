@@ -393,6 +393,10 @@ AfArray* AfArray::is_zero() {
   return new AfArray(afarray);
 }
 
+size_t AfArray::allocated() {
+  return this->c_array.allocated();
+}
+
 // Private
 
 array AfArray::get_c_array() {
