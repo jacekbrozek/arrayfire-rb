@@ -68,6 +68,7 @@ class AfArray {
     bool issingle();
     bool issparse();
     bool isvector();
+    AfArray* flat();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

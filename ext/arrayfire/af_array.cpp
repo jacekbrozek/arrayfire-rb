@@ -515,6 +515,11 @@ bool AfArray::isvector() {
   return this->c_array.isvector();
 }
 
+AfArray* AfArray::flat() {
+  array afarray = af::flat(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
 
 // Private
 
