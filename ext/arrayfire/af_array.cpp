@@ -603,6 +603,12 @@ AfArray* AfArray::tile(int x, int y, int z, int w) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::transpose(bool conjugate) {
+  array afarray = af::transpose(this->c_array, conjugate);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>

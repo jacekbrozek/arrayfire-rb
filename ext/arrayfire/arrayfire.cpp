@@ -94,6 +94,9 @@ extern "C" void Init_arrayfire() {
       Arg("y") = 1,
       Arg("z") = 1,
       Arg("w") = 1
+    ))
+    .define_method("transpose", &AfArray::transpose, (
+      Arg("conjugate") = false
     ));
 }
 
