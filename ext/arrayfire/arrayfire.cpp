@@ -81,7 +81,8 @@ extern "C" void Init_arrayfire() {
       Arg("z") = 2,
       Arg("w") = 3
     ))
-    .define_method("replace", &AfArray::replace);
+    .define_method("replace", &AfArray::replace)
+    .define_method("select", &AfArray::select);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

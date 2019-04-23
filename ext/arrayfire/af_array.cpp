@@ -577,6 +577,20 @@ AfArray* AfArray::replace(AfArray conditions, Object replacement) {
   }
 }
 
+AfArray* AfArray::select(AfArray conditions, Object otherwise) {
+  try {
+    AfArray otherwise_array = from_ruby<AfArray>(otherwise);
+    array afarray = af::select(conditions.get_c_array(), this->c_array, otherwise_array.get_c_array());
+    af_print(afarray);
+    return new AfArray(afarray);
+  } catch(...) {
+    double otherwise_value = from_ruby<double>(otherwise);
+    array afarray = af::select(conditions.get_c_array(), this->c_array, otherwise_value);
+    af_print(afarray);
+    return new AfArray(afarray);
+  }
+}
+
 // Private
 
 template<typename T>
