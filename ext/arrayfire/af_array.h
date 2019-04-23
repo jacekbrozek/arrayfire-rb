@@ -71,6 +71,7 @@ class AfArray {
     AfArray* flat();
     AfArray* flip(uint dimension);
     AfArray* join(int dimension, Array arrays);
+    AfArray* moddims(Array dimensions);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

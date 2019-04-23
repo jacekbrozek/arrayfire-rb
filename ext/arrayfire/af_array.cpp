@@ -540,6 +540,13 @@ AfArray* AfArray::join(int dimension, Array arrays) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::moddims(Array dimensions) {
+  dim4 tdims = ruby_array_to_dimensions(dimensions);
+  array afarray = af::moddims(this->c_array, tdims);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>
