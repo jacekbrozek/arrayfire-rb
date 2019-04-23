@@ -70,6 +70,7 @@ class AfArray {
     bool isvector();
     AfArray* flat();
     AfArray* flip(uint dimension);
+    AfArray* join(int dimension, Array arrays);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 

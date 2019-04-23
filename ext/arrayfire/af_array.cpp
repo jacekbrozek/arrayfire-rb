@@ -527,6 +527,19 @@ AfArray* AfArray::flip(uint dimension) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::join(int dimension, Array arrays) {
+  af_array afarray;
+  size_t count = arrays.size() + 1;
+  af_array c_arrays[4];
+  c_arrays[0] = this->c_array.get();
+  for (size_t index = 1; index < count; index++) {
+    c_arrays[index] = from_ruby<AfArray>(arrays[index-1].value()).c_array.get();
+  }
+  af_join_many(&afarray, dimension, count, c_arrays);
+  af_print_array(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>

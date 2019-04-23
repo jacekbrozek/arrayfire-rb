@@ -72,7 +72,8 @@ extern "C" void Init_arrayfire() {
     .define_method("sparse?", &AfArray::issparse)
     .define_method("vector?", &AfArray::isvector)
     .define_method("flat", &AfArray::flat)
-    .define_method("flip", &AfArray::flip);
+    .define_method("flip", &AfArray::flip)
+    .define_method("join", &AfArray::join);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
