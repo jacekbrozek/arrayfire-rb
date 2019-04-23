@@ -82,7 +82,13 @@ extern "C" void Init_arrayfire() {
       Arg("w") = 3
     ))
     .define_method("replace", &AfArray::replace)
-    .define_method("select", &AfArray::select);
+    .define_method("select", &AfArray::select)
+    .define_method("shift", &AfArray::shift, (
+      Arg("x"),
+      Arg("y") = 0,
+      Arg("z") = 0,
+      Arg("w") = 0
+    ));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

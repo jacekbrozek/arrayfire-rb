@@ -591,6 +591,12 @@ AfArray* AfArray::select(AfArray conditions, Object otherwise) {
   }
 }
 
+AfArray* AfArray::shift(int x, int y, int z, int w) {
+  array afarray = af::shift(this->c_array, x, y, z, w);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>
