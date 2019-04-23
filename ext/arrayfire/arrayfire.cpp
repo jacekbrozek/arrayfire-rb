@@ -88,6 +88,12 @@ extern "C" void Init_arrayfire() {
       Arg("y") = 0,
       Arg("z") = 0,
       Arg("w") = 0
+    ))
+    .define_method("tile", &AfArray::tile, (
+      Arg("x"),
+      Arg("y") = 1,
+      Arg("z") = 1,
+      Arg("w") = 1
     ));
 }
 

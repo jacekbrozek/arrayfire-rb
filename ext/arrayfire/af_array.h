@@ -76,6 +76,7 @@ class AfArray {
     AfArray* replace(AfArray conditions, Object replacement);
     AfArray* select(AfArray conditions, Object otherwise);
     AfArray* shift(int x, int y = 0, int z = 0, int w = 0);
+    AfArray* tile(int x, int y = 1, int z = 1, int w = 1);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
