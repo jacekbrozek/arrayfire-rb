@@ -521,6 +521,12 @@ AfArray* AfArray::flat() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::flip(uint dimension) {
+  array afarray = af::flip(this->c_array, dimension);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>
