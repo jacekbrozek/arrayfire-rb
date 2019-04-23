@@ -547,6 +547,12 @@ AfArray* AfArray::moddims(Array dimensions) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::reorder(int x, int y, int z, int w) {
+  array afarray = af::reorder(this->c_array, x, y, z, w);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>

@@ -74,7 +74,13 @@ extern "C" void Init_arrayfire() {
     .define_method("flat", &AfArray::flat)
     .define_method("flip", &AfArray::flip)
     .define_method("join", &AfArray::join)
-    .define_method("moddims", &AfArray::moddims);
+    .define_method("moddims", &AfArray::moddims)
+    .define_method("reorder", &AfArray::reorder, (
+      Arg("x"),
+      Arg("y") = 1,
+      Arg("z") = 2,
+      Arg("w") = 3
+    ));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
