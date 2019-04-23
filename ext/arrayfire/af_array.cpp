@@ -26,8 +26,8 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
     case u32: create_internal_array<uint>(afarray, elements, tdims, type); break;
     case s64: create_internal_array_long<intl>(afarray, elements, tdims, type); break;
     case u64: create_internal_array_long<uintl>(afarray, elements, tdims, type); break;
-    case s16: create_internal_array<short>(afarray, elements, tdims, type); break;
-    case u16: create_internal_array<ushort>(afarray, elements, tdims, type); break;
+    case s16: create_internal_array_short<short>(afarray, elements, tdims, type); break;
+    case u16: create_internal_array_ushort<ushort>(afarray, elements, tdims, type); break;
   }
 
   this->print();
@@ -241,8 +241,8 @@ AfArray* AfArray::constant(Object value, Array dimensions, Symbol data_type) {
     case u32: afarray = af::constant(cast_ruby_to<uint>(value), tdims, type); break;
     case s64: afarray = af::constant(cast_ruby_to_long<intl>(value), tdims, type); break;
     case u64: afarray = af::constant(cast_ruby_to_long<uintl>(value), tdims, type); break;
-    case s16: afarray = af::constant(cast_ruby_to<short>(value), tdims, type); break;
-    case u16: afarray = af::constant(cast_ruby_to<ushort>(value), tdims, type); break;
+    case s16: afarray = af::constant(cast_ruby_to_short<short>(value), tdims, type); break;
+    case u16: afarray = af::constant(cast_ruby_to_ushort<ushort>(value), tdims, type); break;
   }
   af_print(afarray);
 
@@ -276,6 +276,16 @@ AfArray* AfArray::as(Symbol data_type) {
 template<typename T>
 T AfArray::cast_ruby_to(Object ruby_object) {
   return from_ruby<T>(ruby_object);
+}
+
+template<typename T>
+T AfArray::cast_ruby_to_short(Object ruby_object) {
+  return NUM2SHORT(ruby_object);
+}
+
+template<typename T>
+T AfArray::cast_ruby_to_ushort(Object ruby_object) {
+  return NUM2USHORT(ruby_object);
 }
 
 template<typename T>
@@ -553,6 +563,20 @@ AfArray* AfArray::reorder(int x, int y, int z, int w) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::replace(AfArray conditions, Object replacement) {
+  try {
+    AfArray replacement_array = from_ruby<AfArray>(replacement);
+    af::replace(this->c_array, conditions.get_c_array(), replacement_array.get_c_array());
+    this->print();
+    return this;
+  } catch(...) {
+    double replacement_value = from_ruby<double>(replacement);
+    af::replace(this->c_array, conditions.get_c_array(), replacement_value);
+    this->print();
+    return this;
+  }
+}
+
 // Private
 
 template<typename T>
@@ -617,6 +641,30 @@ void AfArray::create_internal_array_long(af_array afarray, Array elements, dim4 
   for(size_t i = 0; i < count; i++) {
     Object element = Object(elements[i]);
     casted_elements[i] = FIX2LONG(element.value());
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}
+
+template<typename T>
+void AfArray::create_internal_array_short(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  size_t count = elements.size();
+  T casted_elements[count];
+  for(size_t i = 0; i < count; i++) {
+    Object element = Object(elements[i]);
+    casted_elements[i] = NUM2SHORT(element.value());
+  };
+  af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
+  this->set_c_array(afarray);
+}
+
+template<typename T>
+void AfArray::create_internal_array_ushort(af_array afarray, Array elements, dim4 tdims, dtype type) {
+  size_t count = elements.size();
+  T casted_elements[count];
+  for(size_t i = 0; i < count; i++) {
+    Object element = Object(elements[i]);
+    casted_elements[i] = NUM2USHORT(element.value());
   };
   af_create_array(&afarray, casted_elements, tdims.ndims(), tdims.get(), type);
   this->set_c_array(afarray);

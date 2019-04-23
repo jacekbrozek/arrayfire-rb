@@ -73,6 +73,7 @@ class AfArray {
     AfArray* join(int dimension, Array arrays);
     AfArray* moddims(Array dimensions);
     AfArray* reorder(int x, int y = 1, int z = 2, int w = 3);
+    AfArray* replace(AfArray conditions, Object replacement);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
 
@@ -102,8 +103,12 @@ class AfArray {
     template<typename T> void create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type);
+    template<typename T> void create_internal_array_short(af_array afarray, Array elements, dim4 tdims, dtype type);
+    template<typename T> void create_internal_array_ushort(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> static T cast_ruby_to(Object ruby_object);
     template<typename T> static T cast_ruby_to_long(Object ruby_object);
     template<typename T> static T cast_ruby_to_complex(Object ruby_object);
+    template<typename T> static T cast_ruby_to_short(Object ruby_object);
+    template<typename T> static T cast_ruby_to_ushort(Object ruby_object);
     template<typename T> VALUE complex_to_ruby(T complex);
 };

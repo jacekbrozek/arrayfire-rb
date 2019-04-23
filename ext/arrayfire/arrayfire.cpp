@@ -80,7 +80,8 @@ extern "C" void Init_arrayfire() {
       Arg("y") = 1,
       Arg("z") = 2,
       Arg("w") = 3
-    ));
+    ))
+    .define_method("replace", &AfArray::replace);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
