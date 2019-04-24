@@ -20,6 +20,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("identity", &AfArray::identity)
     .define_singleton_method("iota_c", &AfArray::iota)
     .define_singleton_method("range", &AfArray::range)
+    .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)

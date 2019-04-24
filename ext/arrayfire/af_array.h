@@ -80,6 +80,7 @@ class AfArray {
     AfArray* transpose(bool conjugate = false);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
+    static AfArray* create_strided_array(Array elements, Array dimensions, Integer offset, Array strides, Symbol data_type, Symbol source);
 
   private:
     array get_c_array();
