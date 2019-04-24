@@ -20,7 +20,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("identity", &AfArray::identity)
     .define_singleton_method("iota_c", &AfArray::iota)
     .define_singleton_method("range", &AfArray::range)
-    .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
+    // .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
@@ -117,6 +117,14 @@ dtype ruby_sym_to_dtype(Symbol data_type) {
   dtypes.insert(std::make_pair("u16", u16));
 
   return dtypes.find(data_type)->second;
+}
+
+af::source ruby_sym_to_source(Symbol source) {
+  std::map<Symbol, af::source> sources;
+  sources.insert(std::make_pair("device", afDevice));
+  sources.insert(std::make_pair("host", afHost));
+
+  return sources.find(source)->second;
 }
 
 Symbol dtype_to_ruby_sym(dtype data_type) {

@@ -80,7 +80,7 @@ class AfArray {
     AfArray* transpose(bool conjugate = false);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
-    static AfArray* create_strided_array(Array elements, Array dimensions, Integer offset, Array strides, Symbol data_type, Symbol source);
+    static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);
 
   private:
     array get_c_array();
@@ -115,5 +115,10 @@ class AfArray {
     template<typename T> static T cast_ruby_to_complex(Object ruby_object);
     template<typename T> static T cast_ruby_to_short(Object ruby_object);
     template<typename T> static T cast_ruby_to_ushort(Object ruby_object);
+    template<typename T> static T* cast_ruby_array_to(Array elements);
+    template<typename T> static T* cast_ruby_array_to_long(Array elements);
+    template<typename T> static T* cast_ruby_array_to_complex(Array elements);
+    template<typename T> static T* cast_ruby_array_to_short(Array elements);
+    template<typename T> static T* cast_ruby_array_to_ushort(Array elements);
     template<typename T> VALUE complex_to_ruby(T complex);
 };
