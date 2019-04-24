@@ -689,6 +689,11 @@ AfArray* AfArray::transpose(bool conjugate) {
 //   return new AfArray(afarray);
 // }
 
+float AfArray::dot(AfArray other, Symbol opt_lhs, Symbol opt_rhs) {
+  float result = af::dot<float>(this->c_array, other.get_c_array(), ruby_sym_to_opts(opt_lhs), ruby_sym_to_opts(opt_rhs));
+  return result;
+}
+
 // Private
 
 template<typename T>

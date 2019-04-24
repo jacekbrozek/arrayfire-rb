@@ -33,4 +33,5 @@ void Init_ArrayFire();
 
 af::dtype ruby_sym_to_dtype(Rice::Symbol data_type);
 af::source ruby_sym_to_source(Rice::Symbol source);
+af::matProp ruby_sym_to_opts(Rice::Symbol option);
 Rice::Symbol dtype_to_ruby_sym(af::dtype data_type);

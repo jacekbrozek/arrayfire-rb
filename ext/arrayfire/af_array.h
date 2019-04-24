@@ -78,6 +78,7 @@ class AfArray {
     AfArray* shift(int x, int y = 0, int z = 0, int w = 0);
     AfArray* tile(int x, int y = 1, int z = 1, int w = 1);
     AfArray* transpose(bool conjugate = false);
+    float dot(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);

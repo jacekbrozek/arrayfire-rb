@@ -98,6 +98,11 @@ extern "C" void Init_arrayfire() {
     ))
     .define_method("transpose", &AfArray::transpose, (
       Arg("conjugate") = false
+    ))
+    .define_method("dot", &AfArray::dot, (
+      Arg("other"),
+      Arg("opt_lhs") = Symbol("mat_none"),
+      Arg("opt_rhs") = Symbol("mat_none")
     ));
 }
 
@@ -125,6 +130,14 @@ af::source ruby_sym_to_source(Symbol source) {
   sources.insert(std::make_pair("host", afHost));
 
   return sources.find(source)->second;
+}
+
+af::matProp ruby_sym_to_opts(Symbol option) {
+  std::map<Symbol, af::matProp> options;
+  options.insert(std::make_pair("mat_none", AF_MAT_NONE));
+  options.insert(std::make_pair("mat_conj", AF_MAT_CONJ));
+
+  return options.find(option)->second;
 }
 
 Symbol dtype_to_ruby_sym(dtype data_type) {
