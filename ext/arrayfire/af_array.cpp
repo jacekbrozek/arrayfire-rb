@@ -722,30 +722,6 @@ Object AfArray::det() {
   }
 }
 
-
-// AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
-//   array afarray = 0;
-//   dtype type = ruby_sym_to_dtype(data_type);
-//   dim4 tdims = ruby_array_to_dimensions(dimensions);
-//   dim4 tstrides = ruby_array_to_dimensions(strides);
-//   switch (type) {
-//     case f32: afarray = af::createStridedArray(cast_ruby_array_to<float>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case c32: afarray = af::createStridedArray(cast_ruby_array_to_complex<cfloat>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case f64: afarray = af::createStridedArray(cast_ruby_array_to<double>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case c64: afarray = af::createStridedArray(cast_ruby_array_to_complex<cdouble>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case b8:  afarray = af::createStridedArray(cast_ruby_array_to<char>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case s32: afarray = af::createStridedArray(cast_ruby_array_to<int>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case u32: afarray = af::createStridedArray(cast_ruby_array_to<uint>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case s64: afarray = af::createStridedArray(cast_ruby_array_to_long<intl>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case u64: afarray = af::createStridedArray(cast_ruby_array_to_long<uintl>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
-//     case s16: afarray = af::createStridedArray(cast_ruby_array_to_short<short>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source)); break;
-//     case u16: afarray = af::createStridedArray(cast_ruby_array_to_ushort<ushort>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source)); break;
-//   }
-//   af_print(afarray);
-
-//   return new AfArray(afarray);
-// }
-
 float AfArray::dot(AfArray other, Symbol opt_lhs, Symbol opt_rhs) {
   float result = af::dot<float>(this->c_array, other.get_c_array(), ruby_sym_to_opts(opt_lhs), ruby_sym_to_opts(opt_rhs));
   return result;
@@ -775,6 +751,35 @@ AfArray* AfArray::cholesky(bool is_upper) {
   af_print(afarray);
   return new AfArray(afarray);
 }
+
+AfArray* AfArray::inverse(Symbol opts) {
+  array afarray = af::inverse(this->c_array, ruby_sym_to_opts(opts));
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+// AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
+//   array afarray = 0;
+//   dtype type = ruby_sym_to_dtype(data_type);
+//   dim4 tdims = ruby_array_to_dimensions(dimensions);
+//   dim4 tstrides = ruby_array_to_dimensions(strides);
+//   switch (type) {
+//     case f32: afarray = af::createStridedArray(cast_ruby_array_to<float>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case c32: afarray = af::createStridedArray(cast_ruby_array_to_complex<cfloat>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case f64: afarray = af::createStridedArray(cast_ruby_array_to<double>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case c64: afarray = af::createStridedArray(cast_ruby_array_to_complex<cdouble>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case b8:  afarray = af::createStridedArray(cast_ruby_array_to<char>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case s32: afarray = af::createStridedArray(cast_ruby_array_to<int>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case u32: afarray = af::createStridedArray(cast_ruby_array_to<uint>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case s64: afarray = af::createStridedArray(cast_ruby_array_to_long<intl>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case u64: afarray = af::createStridedArray(cast_ruby_array_to_long<uintl>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source) ); break;
+//     case s16: afarray = af::createStridedArray(cast_ruby_array_to_short<short>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source)); break;
+//     case u16: afarray = af::createStridedArray(cast_ruby_array_to_ushort<ushort>(elements), offset, tdims, tstrides, type, ruby_sym_to_source(source)); break;
+//   }
+//   af_print(afarray);
+
+//   return new AfArray(afarray);
+// }
 
 // Private
 
