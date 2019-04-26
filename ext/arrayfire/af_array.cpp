@@ -679,6 +679,19 @@ Array AfArray::lu() {
   return result;
 }
 
+Array AfArray::qr() {
+  array q, r, tau;
+  af::qr(q, r, tau, this->c_array);
+  af_print(q);
+  af_print(r);
+  af_print(tau);
+  Array result;
+  result.push(new AfArray(q));
+  result.push(new AfArray(r));
+  result.push(new AfArray(tau));
+  return result;
+}
+
 
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
