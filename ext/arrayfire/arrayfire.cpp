@@ -20,6 +20,12 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("identity", &AfArray::identity)
     .define_singleton_method("iota_c", &AfArray::iota)
     .define_singleton_method("range", &AfArray::range)
+    .define_singleton_method("solveLU", &AfArray::solveLU, (
+      Arg("a"),
+      Arg("pivot"),
+      Arg("b"),
+      Arg("opts") = Symbol("mat_none")
+    ))
     // .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
@@ -103,6 +109,15 @@ extern "C" void Init_arrayfire() {
       Arg("other"),
       Arg("opt_lhs") = Symbol("mat_none"),
       Arg("opt_rhs") = Symbol("mat_none")
+    ))
+    .define_method("matmul", &AfArray::matmul, (
+      Arg("other"),
+      Arg("opt_lhs") = Symbol("mat_none"),
+      Arg("opt_rhs") = Symbol("mat_none")
+    ))
+    .define_method("solve", &AfArray::solve, (
+      Arg("other"),
+      Arg("opts") = Symbol("mat_none")
     ));
 }
 
@@ -136,6 +151,8 @@ af::matProp ruby_sym_to_opts(Symbol option) {
   std::map<Symbol, af::matProp> options;
   options.insert(std::make_pair("mat_none", AF_MAT_NONE));
   options.insert(std::make_pair("mat_conj", AF_MAT_CONJ));
+  options.insert(std::make_pair("mat_lower", AF_MAT_LOWER));
+  options.insert(std::make_pair("mat_upper", AF_MAT_UPPER));
 
   return options.find(option)->second;
 }

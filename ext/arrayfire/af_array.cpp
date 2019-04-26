@@ -694,6 +694,24 @@ float AfArray::dot(AfArray other, Symbol opt_lhs, Symbol opt_rhs) {
   return result;
 }
 
+AfArray* AfArray::matmul(AfArray other, Symbol opt_lhs, Symbol opt_rhs) {
+  array afarray = af::matmul(this->c_array, other.get_c_array(), ruby_sym_to_opts(opt_lhs), ruby_sym_to_opts(opt_rhs));
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::solve(AfArray other, Symbol opts) {
+  array afarray = af::solve(this->c_array, other.get_c_array(), ruby_sym_to_opts(opts));
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::solveLU(AfArray a, AfArray pivot, AfArray b, Symbol opts) {
+  array afarray = af::solveLU(a.get_c_array(), pivot.get_c_array(), b.get_c_array(), ruby_sym_to_opts(opts));
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>
