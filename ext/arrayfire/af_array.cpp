@@ -705,6 +705,23 @@ Array AfArray::svd() {
   return result;
 }
 
+Object AfArray::det() {
+  dtype type = this->c_array.type();
+  switch (type) {
+    case f32: return to_ruby<float>(af::det<float>(this->c_array)); break;
+    case c32: return complex_to_ruby<cfloat>(af::det<cfloat>(this->c_array)); break;
+    case f64: return to_ruby<double>(af::det<double>(this->c_array)); break;
+    case c64: return complex_to_ruby<cdouble>(af::det<cdouble>(this->c_array)); break;
+    case b8:  return to_ruby<char>(af::det<char>(this->c_array)); break;
+    case s32: return to_ruby<int>(af::det<int>(this->c_array)); break;
+    case u32: return to_ruby<uint>(af::det<uint>(this->c_array)); break;
+    case s64: return LONG2NUM(af::det<intl>(this->c_array)); break;
+    case u64: return ULL2NUM(af::det<uintl>(this->c_array)); break;
+    case s16: return to_ruby<short>(af::det<short>(this->c_array)); break;
+    case u16: return to_ruby<ushort>(af::det<ushort>(this->c_array)); break;
+  }
+}
+
 
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;

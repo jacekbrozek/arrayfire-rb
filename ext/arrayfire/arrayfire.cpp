@@ -124,7 +124,8 @@ extern "C" void Init_arrayfire() {
     ))
     .define_method("lu", &AfArray::lu)
     .define_method("qr", &AfArray::qr)
-    .define_method("svd", &AfArray::svd);
+    .define_method("svd", &AfArray::svd)
+    .define_method("det", &AfArray::det);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
