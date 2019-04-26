@@ -118,6 +118,9 @@ extern "C" void Init_arrayfire() {
     .define_method("solve", &AfArray::solve, (
       Arg("other"),
       Arg("opts") = Symbol("mat_none")
+    ))
+    .define_method("cholesky", &AfArray::cholesky, (
+      Arg("is_upper") = true
     ));
 }
 

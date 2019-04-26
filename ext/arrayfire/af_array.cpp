@@ -712,6 +712,13 @@ AfArray* AfArray::solveLU(AfArray a, AfArray pivot, AfArray b, Symbol opts) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::cholesky(bool is_upper) {
+  array afarray;
+  int info = af::cholesky(afarray, this->c_array, is_upper);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // Private
 
 template<typename T>
