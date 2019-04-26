@@ -692,6 +692,19 @@ Array AfArray::qr() {
   return result;
 }
 
+Array AfArray::svd() {
+  array u, s, vt;
+  af::svd(u, s, vt, this->c_array);
+  af_print(u);
+  af_print(s);
+  af_print(vt);
+  Array result;
+  result.push(new AfArray(u));
+  result.push(new AfArray(s));
+  result.push(new AfArray(vt));
+  return result;
+}
+
 
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;

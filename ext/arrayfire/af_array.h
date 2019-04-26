@@ -85,6 +85,7 @@ class AfArray {
     AfArray* cholesky(bool is_upper = true);
     Array lu();
     Array qr();
+    Array svd();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);
