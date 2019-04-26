@@ -83,6 +83,7 @@ class AfArray {
     AfArray* solve(AfArray other, Symbol opts = "mat_none");
     static AfArray* solveLU(AfArray a, AfArray pivot, AfArray b, Symbol opts = "mat_none");
     AfArray* cholesky(bool is_upper = true);
+    Array lu();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);

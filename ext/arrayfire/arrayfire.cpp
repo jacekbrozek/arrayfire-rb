@@ -121,7 +121,8 @@ extern "C" void Init_arrayfire() {
     ))
     .define_method("cholesky", &AfArray::cholesky, (
       Arg("is_upper") = true
-    ));
+    ))
+    .define_method("lu", &AfArray::lu);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

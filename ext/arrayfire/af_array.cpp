@@ -666,6 +666,20 @@ AfArray* AfArray::transpose(bool conjugate) {
   return new AfArray(afarray);
 }
 
+Array AfArray::lu() {
+  array lower, upper, pivot;
+  af::lu(lower, upper, pivot, this->c_array);
+  af_print(lower);
+  af_print(upper);
+  af_print(pivot);
+  Array result;
+  result.push(new AfArray(lower));
+  result.push(new AfArray(upper));
+  result.push(new AfArray(pivot));
+  return result;
+}
+
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
