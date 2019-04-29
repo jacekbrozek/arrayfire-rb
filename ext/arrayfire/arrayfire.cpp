@@ -133,7 +133,11 @@ extern "C" void Init_arrayfire() {
       Arg("p"),
       Arg("q"),
       Arg("norm_type") = Symbol("norm_euclid")
-    ));
+    ))
+    .define_method("rank", &AfArray::rank, (
+      Arg("tolerance") = 1E-5
+    ))
+    ;
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

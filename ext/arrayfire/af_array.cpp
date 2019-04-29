@@ -757,8 +757,14 @@ AfArray* AfArray::inverse(Symbol opts) {
   af_print(afarray);
   return new AfArray(afarray);
 }
+
 double AfArray::norm(double p, double q, Symbol norm_type) {
   double result = af::norm(this->c_array, ruby_sym_to_norm_type(norm_type), p, q);
+  return result;
+}
+
+unsigned AfArray::rank(double tolerance) {
+  unsigned result = af::rank(this->c_array, tolerance);
   return result;
 }
 
