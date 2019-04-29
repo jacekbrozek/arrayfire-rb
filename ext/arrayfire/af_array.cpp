@@ -757,6 +757,10 @@ AfArray* AfArray::inverse(Symbol opts) {
   af_print(afarray);
   return new AfArray(afarray);
 }
+double AfArray::norm(double p, double q, Symbol norm_type) {
+  double result = af::norm(this->c_array, ruby_sym_to_norm_type(norm_type), p, q);
+  return result;
+}
 
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;

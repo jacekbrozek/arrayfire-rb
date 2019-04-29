@@ -128,6 +128,11 @@ extern "C" void Init_arrayfire() {
     .define_method("det", &AfArray::det)
     .define_method("inverse", &AfArray::inverse, (
       Arg("opts") = Symbol("mat_none")
+    ))
+    .define_method("norm", &AfArray::norm, (
+      Arg("p"),
+      Arg("q"),
+      Arg("norm_type") = Symbol("norm_euclid")
     ));
 }
 
@@ -165,6 +170,20 @@ af::matProp ruby_sym_to_opts(Symbol option) {
   options.insert(std::make_pair("mat_upper", AF_MAT_UPPER));
 
   return options.find(option)->second;
+}
+
+af::normType ruby_sym_to_norm_type(Symbol norm_type) {
+  std::map<Symbol, af::normType> options;
+  options.insert(std::make_pair("norm_vector_1", AF_NORM_VECTOR_1));
+  options.insert(std::make_pair("norm_vector_inf", AF_NORM_VECTOR_INF));
+  options.insert(std::make_pair("norm_vector_2", AF_NORM_VECTOR_2));
+  options.insert(std::make_pair("norm_vector_p", AF_NORM_VECTOR_P));
+  options.insert(std::make_pair("norm_matrix_1", AF_NORM_MATRIX_1));
+  options.insert(std::make_pair("norm_matrix_inf", AF_NORM_MATRIX_INF));
+  options.insert(std::make_pair("norm_matrix_2", AF_NORM_MATRIX_2));
+  options.insert(std::make_pair("norm_matrix_l_pq", AF_NORM_MATRIX_L_PQ));
+  options.insert(std::make_pair("norm_euclid", AF_NORM_EUCLID));
+  return options.find(norm_type)->second;
 }
 
 Symbol dtype_to_ruby_sym(dtype data_type) {
