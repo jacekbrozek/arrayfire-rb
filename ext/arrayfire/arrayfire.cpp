@@ -141,7 +141,8 @@ extern "C" void Init_arrayfire() {
     .define_method("erf", &AfArray::erf)
     .define_method("erfc", &AfArray::erfc)
     .define_method("exp", &AfArray::exp)
-    .define_method("expm1", &AfArray::expm1);
+    .define_method("expm1", &AfArray::expm1)
+    .define_method("factorial", &AfArray::factorial);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

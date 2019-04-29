@@ -792,9 +792,14 @@ AfArray* AfArray::exp() {
   return new AfArray(afarray);
 }
 
-
 AfArray* AfArray::expm1() {
   array afarray = af::expm1(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::factorial() {
+  array afarray = af::factorial(this->c_array);
   af_print(afarray);
   return new AfArray(afarray);
 }
