@@ -144,7 +144,9 @@ extern "C" void Init_arrayfire() {
     .define_method("expm1", &AfArray::expm1)
     .define_method("factorial", &AfArray::factorial)
     .define_method("lgamma", &AfArray::lgamma)
-    .define_method("log", &AfArray::log);
+    .define_method("log", &AfArray::log)
+    .define_method("log10", &AfArray::log10)
+    .define_method("log1p", &AfArray::log1p);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
