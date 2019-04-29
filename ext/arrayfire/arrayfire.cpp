@@ -137,7 +137,7 @@ extern "C" void Init_arrayfire() {
     .define_method("rank", &AfArray::rank, (
       Arg("tolerance") = 1E-5
     ))
-    ;
+    .define_method("cbrt", &AfArray::cbrt);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
