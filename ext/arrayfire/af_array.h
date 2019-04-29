@@ -92,6 +92,9 @@ class AfArray {
     unsigned rank(double tolerance = 1E-5);
     AfArray* cbrt();
     AfArray* erf();
+    AfArray* erfc();
+    AfArray* exp();
+    AfArray* expm1();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);

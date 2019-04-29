@@ -138,7 +138,10 @@ extern "C" void Init_arrayfire() {
       Arg("tolerance") = 1E-5
     ))
     .define_method("cbrt", &AfArray::cbrt)
-    .define_method("erf", &AfArray::erf);
+    .define_method("erf", &AfArray::erf)
+    .define_method("erfc", &AfArray::erfc)
+    .define_method("exp", &AfArray::exp)
+    .define_method("expm1", &AfArray::expm1);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
