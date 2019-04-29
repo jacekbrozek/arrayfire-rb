@@ -146,7 +146,9 @@ extern "C" void Init_arrayfire() {
     .define_method("lgamma", &AfArray::lgamma)
     .define_method("log", &AfArray::log)
     .define_method("log10", &AfArray::log10)
-    .define_method("log1p", &AfArray::log1p);
+    .define_method("log1p", &AfArray::log1p)
+    .define_method("pow2", &AfArray::pow2)
+    .define_method("**", &AfArray::pow);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

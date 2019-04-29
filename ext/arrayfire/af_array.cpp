@@ -828,6 +828,32 @@ AfArray* AfArray::log1p() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::pow2() {
+  array afarray = af::pow2(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::pow(Object other) {
+  try {
+    return AfArray::pow_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::pow_internal(from_ruby<double>(other));
+  }
+}
+
+AfArray* AfArray::pow_internal(AfArray other) {
+  array afarray = af::pow(this->c_array, other.get_c_array());
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::pow_internal(double value) {
+  array afarray = af::pow(this->c_array, value);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
