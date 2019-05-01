@@ -898,6 +898,18 @@ AfArray* AfArray::bit_or(Object other) {
   }
 }
 
+AfArray* AfArray::bit_xor(Object other) {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
+    array afarray = this->c_array ^ from_ruby<AfArray>(other).get_c_array();
+    af_print(afarray);
+    return new AfArray(afarray);
+  } else {
+    array afarray = this->c_array ^ from_ruby<int>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  }
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

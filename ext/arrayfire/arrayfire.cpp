@@ -151,7 +151,8 @@ extern "C" void Init_arrayfire() {
     .define_method("**", &AfArray::pow)
     .define_method("root", &AfArray::root)
     .define_method("&", &AfArray::bit_and)
-    .define_method("|", &AfArray::bit_or);
+    .define_method("|", &AfArray::bit_or)
+    .define_method("^", &AfArray::bit_xor);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

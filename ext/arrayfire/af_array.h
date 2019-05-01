@@ -108,6 +108,7 @@ class AfArray {
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);
     AfArray* bit_and(Object other);
     AfArray* bit_or(Object other);
+    AfArray* bit_xor(Object other);
 
   private:
     array get_c_array();
