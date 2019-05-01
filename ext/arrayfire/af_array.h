@@ -97,6 +97,7 @@ class AfArray {
     AfArray* expm1();
     AfArray* factorial();
     AfArray* lgamma();
+    AfArray* tgamma();
     AfArray* log();
     AfArray* log10();
     AfArray* log1p();

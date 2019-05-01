@@ -810,6 +810,12 @@ AfArray* AfArray::lgamma() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::tgamma() {
+  array afarray = af::tgamma(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 AfArray* AfArray::log() {
   array afarray = af::log(this->c_array);
   af_print(afarray);
