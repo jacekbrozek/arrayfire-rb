@@ -874,6 +874,12 @@ AfArray* AfArray::root_internal(double value) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::sqrt() {
+  array afarray = af::sqrt(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 AfArray* AfArray::bit_and(Object other) {
   if(other.is_a(Data_Type<AfArray>::klass())) {
     array afarray = this->c_array & from_ruby<AfArray>(other).get_c_array();
