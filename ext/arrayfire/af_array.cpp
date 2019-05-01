@@ -40,9 +40,9 @@ void AfArray::print() {
 }
 
 AfArray* AfArray::multiply(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::multiply_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::multiply_internal(from_ruby<int>(other));
   }
 }
@@ -60,9 +60,9 @@ AfArray* AfArray::multiply_internal(int value) {
 }
 
 AfArray* AfArray::multiply_assign(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::multiply_assign_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::multiply_assign_internal(from_ruby<int>(other));
   }
 }
@@ -80,9 +80,9 @@ AfArray* AfArray::multiply_assign_internal(int value) {
 }
 
 AfArray* AfArray::add(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::add_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::add_internal(from_ruby<int>(other));
   }
 }
@@ -100,9 +100,9 @@ AfArray* AfArray::add_internal(int value) {
 }
 
 AfArray* AfArray::add_assign(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::add_assign_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::add_assign_internal(from_ruby<int>(other));
   }
 }
@@ -120,9 +120,9 @@ AfArray* AfArray::add_assign_internal(int value) {
 }
 
 AfArray* AfArray::div(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::div_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::div_internal(from_ruby<int>(other));
   }
 }
@@ -140,9 +140,9 @@ AfArray* AfArray::div_internal(int value) {
 }
 
 AfArray* AfArray::div_assign(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::div_assign_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::div_assign_internal(from_ruby<int>(other));
   }
 }
@@ -160,9 +160,9 @@ AfArray* AfArray::div_assign_internal(int value) {
 }
 
 AfArray* AfArray::sub(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::sub_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::sub_internal(from_ruby<int>(other));
   }
 }
@@ -180,9 +180,9 @@ AfArray* AfArray::sub_internal(int value) {
 }
 
 AfArray* AfArray::sub_assign(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::sub_assign_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::sub_assign_internal(from_ruby<int>(other));
   }
 }
@@ -621,12 +621,12 @@ AfArray* AfArray::reorder(int x, int y, int z, int w) {
 }
 
 AfArray* AfArray::replace(AfArray conditions, Object replacement) {
-  try {
+  if(replacement.is_a(Data_Type<AfArray>::klass())) {
     AfArray replacement_array = from_ruby<AfArray>(replacement);
     af::replace(this->c_array, conditions.get_c_array(), replacement_array.get_c_array());
     this->print();
     return this;
-  } catch(...) {
+  } else {
     double replacement_value = from_ruby<double>(replacement);
     af::replace(this->c_array, conditions.get_c_array(), replacement_value);
     this->print();
@@ -635,12 +635,12 @@ AfArray* AfArray::replace(AfArray conditions, Object replacement) {
 }
 
 AfArray* AfArray::select(AfArray conditions, Object otherwise) {
-  try {
+  if(otherwise.is_a(Data_Type<AfArray>::klass())) {
     AfArray otherwise_array = from_ruby<AfArray>(otherwise);
     array afarray = af::select(conditions.get_c_array(), this->c_array, otherwise_array.get_c_array());
     af_print(afarray);
     return new AfArray(afarray);
-  } catch(...) {
+  } else {
     double otherwise_value = from_ruby<double>(otherwise);
     array afarray = af::select(conditions.get_c_array(), this->c_array, otherwise_value);
     af_print(afarray);
@@ -835,9 +835,9 @@ AfArray* AfArray::pow2() {
 }
 
 AfArray* AfArray::pow(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::pow_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::pow_internal(from_ruby<double>(other));
   }
 }
@@ -855,9 +855,9 @@ AfArray* AfArray::pow_internal(double value) {
 }
 
 AfArray* AfArray::root(Object other) {
-  try {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
     return AfArray::root_internal(from_ruby<AfArray>(other));
-  } catch(...) {
+  } else {
     return AfArray::root_internal(from_ruby<double>(other));
   }
 }
