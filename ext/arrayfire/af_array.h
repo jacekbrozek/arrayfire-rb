@@ -105,6 +105,12 @@ class AfArray {
     AfArray* pow2();
     AfArray* root(Object other);
     AfArray* sqrt();
+    AfArray* acosh();
+    AfArray* asinh();
+    AfArray* atanh();
+    AfArray* cosh();
+    AfArray* sinh();
+    AfArray* tanh();
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);

@@ -886,6 +886,42 @@ AfArray* AfArray::sqrt() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::acosh() {
+  array afarray = af::acosh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::asinh() {
+  array afarray = af::asinh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::atanh() {
+  array afarray = af::atanh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::cosh() {
+  array afarray = af::cosh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::sinh() {
+  array afarray = af::sinh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::tanh() {
+  array afarray = af::tanh(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 AfArray* AfArray::bit_and(Object other) {
   if(other.is_a(Data_Type<AfArray>::klass())) {
     array afarray = this->c_array & from_ruby<AfArray>(other).get_c_array();
