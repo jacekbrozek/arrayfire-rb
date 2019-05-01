@@ -102,9 +102,11 @@ class AfArray {
     AfArray* log1p();
     AfArray* pow(Object other);
     AfArray* pow2();
+    AfArray* root(Object other);
     static AfArray* identity(Array dimensions, Symbol data_type);
     static AfArray* iota(Array dimensions, Array tile_dimensions, Symbol data_type);
     static AfArray* create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source);
+    AfArray* bit_and(Object other);
 
   private:
     array get_c_array();
@@ -131,6 +133,8 @@ class AfArray {
     AfArray* sub_assign_internal(int value);
     AfArray* pow_internal(AfArray other);
     AfArray* pow_internal(double value);
+    AfArray* root_internal(AfArray other);
+    AfArray* root_internal(double value);
     template<typename T> void create_internal_array(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_long(af_array afarray, Array elements, dim4 tdims, dtype type);
     template<typename T> void create_internal_array_complex(af_array afarray, Array elements, dim4 tdims, dtype type);

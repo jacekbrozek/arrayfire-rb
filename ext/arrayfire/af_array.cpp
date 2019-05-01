@@ -854,6 +854,38 @@ AfArray* AfArray::pow_internal(double value) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::root(Object other) {
+  try {
+    return AfArray::root_internal(from_ruby<AfArray>(other));
+  } catch(...) {
+    return AfArray::root_internal(from_ruby<double>(other));
+  }
+}
+
+AfArray* AfArray::root_internal(AfArray other) {
+  array afarray = af::root(this->c_array, other.get_c_array());
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::root_internal(double value) {
+  array afarray = af::root(this->c_array, value);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::bit_and(Object other) {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
+    array afarray = this->c_array & from_ruby<AfArray>(other).get_c_array();
+    af_print(afarray);
+    return new AfArray(afarray);
+  } else {
+    array afarray = this->c_array & from_ruby<int>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  }
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
