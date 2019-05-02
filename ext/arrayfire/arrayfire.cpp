@@ -162,7 +162,8 @@ extern "C" void Init_arrayfire() {
     .define_method("|", &AfArray::bit_or)
     .define_method("^", &AfArray::bit_xor)
     .define_method("==", &AfArray::eq)
-    .define_method("and", &AfArray::logical_and);
+    .define_method("and", &AfArray::logical_and)
+    .define_method("or", &AfArray::logical_or);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

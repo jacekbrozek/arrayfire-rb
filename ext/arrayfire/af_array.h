@@ -119,6 +119,7 @@ class AfArray {
     AfArray* bit_xor(Object other);
     AfArray* eq(Object other);
     AfArray* logical_and(Object other);
+    AfArray* logical_or(Object other);
 
   private:
     array get_c_array();

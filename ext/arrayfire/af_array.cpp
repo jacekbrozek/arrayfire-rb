@@ -1032,6 +1032,43 @@ AfArray* AfArray::logical_and(Object other) {
   return afarray;
 }
 
+AfArray* AfArray::logical_or(Object other) {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
+    array afarray = this->c_array || from_ruby<AfArray>(other).get_c_array();
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+
+  if(other.class_of().name() == String("Integer")) {
+    array afarray = this->c_array || from_ruby<int>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  if(other.class_of().name() == String("Float")) {
+    array afarray = this->c_array || from_ruby<double>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  if(other.class_of().name() == String("Complex")) {
+    array afarray = this->c_array || cast_ruby_to_complex<cdouble>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  if(other.class_of().name() == String("TrueClass") || other.class_of().name() == String("FalseClass")) {
+    array afarray = this->c_array || from_ruby<bool>(other);
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  AfArray* afarray = AfArray::constant(to_ruby<int>(0), this->dims(), Symbol("b8"));
+  af_print(afarray->c_array);
+  return afarray;
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
