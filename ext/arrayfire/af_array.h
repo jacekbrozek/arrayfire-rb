@@ -130,6 +130,7 @@ class AfArray {
     AfArray* abs();
     AfArray* arg();
     AfArray* ceil();
+    AfArray* floor();
 
   private:
     array get_c_array();

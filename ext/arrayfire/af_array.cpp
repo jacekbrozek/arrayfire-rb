@@ -1263,6 +1263,17 @@ AfArray* AfArray::ceil() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::floor() {
+  if(this->iscomplex()) {
+    this->print();
+    return new AfArray(this->c_array);
+  };
+
+  array afarray = af::floor(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

@@ -173,7 +173,8 @@ extern "C" void Init_arrayfire() {
     .define_method("<=", &AfArray::le)
     .define_method("abs", &AfArray::abs)
     .define_method("arg", &AfArray::arg)
-    .define_method("ceil", &AfArray::ceil);
+    .define_method("ceil", &AfArray::ceil)
+    .define_method("floor", &AfArray::floor);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
