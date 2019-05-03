@@ -174,7 +174,8 @@ extern "C" void Init_arrayfire() {
     .define_method("abs", &AfArray::abs)
     .define_method("arg", &AfArray::arg)
     .define_method("ceil", &AfArray::ceil)
-    .define_method("floor", &AfArray::floor);
+    .define_method("floor", &AfArray::floor)
+    .define_method("hypot", &AfArray::hypot);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

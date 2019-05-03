@@ -131,6 +131,7 @@ class AfArray {
     AfArray* arg();
     AfArray* ceil();
     AfArray* floor();
+    AfArray* hypot(Object other);
 
   private:
     array get_c_array();

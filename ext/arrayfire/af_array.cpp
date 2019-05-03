@@ -1274,6 +1274,28 @@ AfArray* AfArray::floor() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::hypot(Object other) {
+  if(other.is_a(Data_Type<AfArray>::klass())) {
+    if(this->iscomplex() || from_ruby<AfArray>(other).iscomplex()) {
+      this->print();
+      return new AfArray(this->c_array);
+    };
+    array afarray = af::hypot(this->c_array, from_ruby<AfArray>(other).get_c_array());
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  if(other.class_of().name() == String("Float")) {
+    array afarray = af::hypot(this->c_array, from_ruby<double>(other));
+    af_print(afarray);
+    return new AfArray(afarray);
+  };
+
+  AfArray* afarray = AfArray::constant(to_ruby<int>(0), this->dims(), Symbol("b8"));
+  af_print(afarray->c_array);
+  return afarray;
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
