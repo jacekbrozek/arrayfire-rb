@@ -125,6 +125,8 @@ class AfArray {
     AfArray* logical_not();
     AfArray* gt(Object other);
     AfArray* lt(Object other);
+    AfArray* ge(Object other);
+    AfArray* le(Object other);
 
   private:
     array get_c_array();

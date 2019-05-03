@@ -168,7 +168,9 @@ extern "C" void Init_arrayfire() {
     .define_method("-@", &AfArray::neg)
     .define_method("not", &AfArray::logical_not)
     .define_method(">", &AfArray::gt)
-    .define_method("<", &AfArray::lt);
+    .define_method("<", &AfArray::lt)
+    .define_method(">=", &AfArray::ge)
+    .define_method("<=", &AfArray::le);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
