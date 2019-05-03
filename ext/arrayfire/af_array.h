@@ -135,6 +135,7 @@ class AfArray {
     AfArray* max(Object other);
     AfArray* min(Object other);
     AfArray* mod(Object other);
+    AfArray* rem(Object other);
 
   private:
     array get_c_array();

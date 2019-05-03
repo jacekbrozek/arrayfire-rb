@@ -178,7 +178,8 @@ extern "C" void Init_arrayfire() {
     .define_method("hypot", &AfArray::hypot)
     .define_method("max", &AfArray::max)
     .define_method("min", &AfArray::min)
-    .define_method("%", &AfArray::mod);
+    .define_method("%", &AfArray::mod)
+    .define_method("rem", &AfArray::rem);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
