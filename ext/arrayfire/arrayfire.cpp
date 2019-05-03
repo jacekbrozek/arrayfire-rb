@@ -164,7 +164,9 @@ extern "C" void Init_arrayfire() {
     .define_method("==", &AfArray::eq)
     .define_method("!=", &AfArray::neq)
     .define_method("and", &AfArray::logical_and)
-    .define_method("or", &AfArray::logical_or);
+    .define_method("or", &AfArray::logical_or)
+    .define_method("-@", &AfArray::neg)
+    .define_method("not", &AfArray::logical_not);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

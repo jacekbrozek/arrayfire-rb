@@ -121,6 +121,8 @@ class AfArray {
     AfArray* neq(Object other);
     AfArray* logical_and(Object other);
     AfArray* logical_or(Object other);
+    AfArray* neg();
+    AfArray* logical_not();
 
   private:
     array get_c_array();
