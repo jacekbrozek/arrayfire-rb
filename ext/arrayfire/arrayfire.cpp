@@ -170,7 +170,8 @@ extern "C" void Init_arrayfire() {
     .define_method(">", &AfArray::gt)
     .define_method("<", &AfArray::lt)
     .define_method(">=", &AfArray::ge)
-    .define_method("<=", &AfArray::le);
+    .define_method("<=", &AfArray::le)
+    .define_method("abs", &AfArray::abs);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
