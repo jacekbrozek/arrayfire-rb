@@ -1503,6 +1503,27 @@ AfArray* AfArray::convolve3(AfArray signal, AfArray filter, Symbol conv_mode, Sy
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::fft_convolve(AfArray signal, AfArray filter, Symbol conv_mode) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  array afarray = af::fftConvolve(signal.get_c_array(), filter.get_c_array(), mode);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::fft_convolve2(AfArray signal, AfArray filter, Symbol conv_mode) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  array afarray = af::fftConvolve2(signal.get_c_array(), filter.get_c_array(), mode);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::fft_convolve3(AfArray signal, AfArray filter, Symbol conv_mode) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  array afarray = af::fftConvolve2(signal.get_c_array(), filter.get_c_array(), mode);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

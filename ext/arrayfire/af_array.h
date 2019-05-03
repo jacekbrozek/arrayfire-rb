@@ -150,6 +150,9 @@ class AfArray {
     static AfArray* convolve1(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
     static AfArray* convolve2(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
     static AfArray* convolve3(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
+    static AfArray* fft_convolve(AfArray signal, AfArray filter, Symbol conv_mode);
+    static AfArray* fft_convolve2(AfArray signal, AfArray filter, Symbol conv_mode);
+    static AfArray* fft_convolve3(AfArray signal, AfArray filter, Symbol conv_mode);
 
   private:
     array get_c_array();
