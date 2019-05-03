@@ -153,6 +153,9 @@ class AfArray {
     static AfArray* fft_convolve(AfArray signal, AfArray filter, Symbol conv_mode);
     static AfArray* fft_convolve2(AfArray signal, AfArray filter, Symbol conv_mode);
     static AfArray* fft_convolve3(AfArray signal, AfArray filter, Symbol conv_mode);
+    AfArray* dft_plain();
+    AfArray* dft_dims(Array dims);
+    AfArray* dft_norm_dims(double norm_factor, Array dims);
 
   private:
     array get_c_array();

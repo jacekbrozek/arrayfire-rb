@@ -1524,6 +1524,26 @@ AfArray* AfArray::fft_convolve3(AfArray signal, AfArray filter, Symbol conv_mode
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::dft_plain() {
+  array afarray = af::dft(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::dft_dims(Array dims) {
+  dim4 tdims = ruby_array_to_dimensions(dims);
+  array afarray = af::dft(this->c_array, tdims);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::dft_norm_dims(double norm_factor, Array dims) {
+  dim4 tdims = ruby_array_to_dimensions(dims);
+  array afarray = af::dft(this->c_array, norm_factor, tdims);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

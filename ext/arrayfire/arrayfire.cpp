@@ -228,7 +228,10 @@ extern "C" void Init_arrayfire() {
     .define_method("atan2", &AfArray::atan2)
     .define_method("cos", &AfArray::cos)
     .define_method("sin", &AfArray::sin)
-    .define_method("tan", &AfArray::tan);
+    .define_method("tan", &AfArray::tan)
+    .define_method("dft_plain", &AfArray::dft_plain)
+    .define_method("dft_dims", &AfArray::dft_dims)
+    .define_method("dft_norm_dims", &AfArray::dft_norm_dims);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
