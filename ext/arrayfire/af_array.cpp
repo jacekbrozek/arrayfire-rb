@@ -1471,6 +1471,14 @@ AfArray* AfArray::atan2(Object other) {
   return afarray;
 }
 
+AfArray* AfArray::convolve(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  convDomain domain = ruby_sym_to_conv_domain(conv_domain);
+  array afarray = af::convolve(signal.get_c_array(), filter.get_c_array(), mode, domain);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

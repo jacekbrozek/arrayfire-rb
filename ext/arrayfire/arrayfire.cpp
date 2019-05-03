@@ -26,6 +26,12 @@ extern "C" void Init_arrayfire() {
       Arg("b"),
       Arg("opts") = Symbol("mat_none")
     ))
+    .define_singleton_method("convolve", &AfArray::convolve, (
+      Arg("signal"),
+      Arg("filter"),
+      Arg("conv_mode") = Symbol("conv_default"),
+      Arg("conv_domain") = Symbol("conv_auto")
+    ))
     // .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)
@@ -240,6 +246,23 @@ af::normType ruby_sym_to_norm_type(Symbol norm_type) {
   options.insert(std::make_pair("norm_matrix_l_pq", AF_NORM_MATRIX_L_PQ));
   options.insert(std::make_pair("norm_euclid", AF_NORM_EUCLID));
   return options.find(norm_type)->second;
+}
+
+af::convMode ruby_sym_to_conv_mode(Symbol option) {
+  std::map<Symbol, af::convMode> options;
+  options.insert(std::make_pair("conv_default", AF_CONV_DEFAULT));
+  options.insert(std::make_pair("conv_expand", AF_CONV_EXPAND));
+
+  return options.find(option)->second;
+}
+
+af::convDomain ruby_sym_to_conv_domain(Symbol option) {
+  std::map<Symbol, af::convDomain> options;
+  options.insert(std::make_pair("conv_auto", AF_CONV_AUTO));
+  options.insert(std::make_pair("conv_spatial", AF_CONV_SPATIAL));
+  options.insert(std::make_pair("conv_freq", AF_CONV_FREQ));
+
+  return options.find(option)->second;
 }
 
 Symbol dtype_to_ruby_sym(dtype data_type) {
