@@ -129,6 +129,7 @@ class AfArray {
     AfArray* le(Object other);
     AfArray* abs();
     AfArray* arg();
+    AfArray* ceil();
 
   private:
     array get_c_array();
