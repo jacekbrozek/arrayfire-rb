@@ -123,6 +123,8 @@ class AfArray {
     AfArray* logical_or(Object other);
     AfArray* neg();
     AfArray* logical_not();
+    AfArray* gt(Object other);
+    AfArray* lt(Object other);
 
   private:
     array get_c_array();
