@@ -136,6 +136,7 @@ class AfArray {
     AfArray* min(Object other);
     AfArray* mod(Object other);
     AfArray* rem(Object other);
+    AfArray* round();
 
   private:
     array get_c_array();
