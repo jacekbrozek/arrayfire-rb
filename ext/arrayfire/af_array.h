@@ -137,6 +137,8 @@ class AfArray {
     AfArray* mod(Object other);
     AfArray* rem(Object other);
     AfArray* round();
+    AfArray* sign();
+    AfArray* trunc();
 
   private:
     array get_c_array();

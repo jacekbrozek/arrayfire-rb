@@ -180,7 +180,9 @@ extern "C" void Init_arrayfire() {
     .define_method("min", &AfArray::min)
     .define_method("%", &AfArray::mod)
     .define_method("rem", &AfArray::rem)
-    .define_method("round", &AfArray::round);
+    .define_method("round", &AfArray::round)
+    .define_method("sign", &AfArray::sign)
+    .define_method("trunc", &AfArray::trunc);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
