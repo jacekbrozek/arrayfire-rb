@@ -139,6 +139,13 @@ class AfArray {
     AfArray* round();
     AfArray* sign();
     AfArray* trunc();
+    AfArray* acos();
+    AfArray* asin();
+    AfArray* atan();
+    AfArray* atan2(Object other);
+    AfArray* cos();
+    AfArray* sin();
+    AfArray* tan();
 
   private:
     array get_c_array();

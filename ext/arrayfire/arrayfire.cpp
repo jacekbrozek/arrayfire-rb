@@ -182,7 +182,14 @@ extern "C" void Init_arrayfire() {
     .define_method("rem", &AfArray::rem)
     .define_method("round", &AfArray::round)
     .define_method("sign", &AfArray::sign)
-    .define_method("trunc", &AfArray::trunc);
+    .define_method("trunc", &AfArray::trunc)
+    .define_method("acos", &AfArray::acos)
+    .define_method("asin", &AfArray::asin)
+    .define_method("atan", &AfArray::atan)
+    .define_method("atan2", &AfArray::atan2)
+    .define_method("cos", &AfArray::cos)
+    .define_method("sin", &AfArray::sin)
+    .define_method("tan", &AfArray::tan);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
