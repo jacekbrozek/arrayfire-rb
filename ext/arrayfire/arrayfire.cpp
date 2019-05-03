@@ -32,6 +32,24 @@ extern "C" void Init_arrayfire() {
       Arg("conv_mode") = Symbol("conv_default"),
       Arg("conv_domain") = Symbol("conv_auto")
     ))
+    .define_singleton_method("convolve1", &AfArray::convolve1, (
+      Arg("signal"),
+      Arg("filter"),
+      Arg("conv_mode") = Symbol("conv_default"),
+      Arg("conv_domain") = Symbol("conv_auto")
+    ))
+    .define_singleton_method("convolve2", &AfArray::convolve2, (
+      Arg("signal"),
+      Arg("filter"),
+      Arg("conv_mode") = Symbol("conv_default"),
+      Arg("conv_domain") = Symbol("conv_auto")
+    ))
+    .define_singleton_method("convolve3", &AfArray::convolve3, (
+      Arg("signal"),
+      Arg("filter"),
+      Arg("conv_mode") = Symbol("conv_default"),
+      Arg("conv_domain") = Symbol("conv_auto")
+    ))
     // .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
     .define_method("*", &AfArray::multiply)

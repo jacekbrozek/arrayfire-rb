@@ -147,6 +147,9 @@ class AfArray {
     AfArray* sin();
     AfArray* tan();
     static AfArray* convolve(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
+    static AfArray* convolve1(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
+    static AfArray* convolve2(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
+    static AfArray* convolve3(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain);
 
   private:
     array get_c_array();

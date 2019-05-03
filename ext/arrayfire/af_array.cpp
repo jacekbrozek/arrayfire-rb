@@ -1479,6 +1479,30 @@ AfArray* AfArray::convolve(AfArray signal, AfArray filter, Symbol conv_mode, Sym
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::convolve1(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  convDomain domain = ruby_sym_to_conv_domain(conv_domain);
+  array afarray = af::convolve1(signal.get_c_array(), filter.get_c_array(), mode, domain);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::convolve2(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  convDomain domain = ruby_sym_to_conv_domain(conv_domain);
+  array afarray = af::convolve2(signal.get_c_array(), filter.get_c_array(), mode, domain);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
+AfArray* AfArray::convolve3(AfArray signal, AfArray filter, Symbol conv_mode, Symbol conv_domain) {
+  convMode mode = ruby_sym_to_conv_mode(conv_mode);
+  convDomain domain = ruby_sym_to_conv_domain(conv_domain);
+  array afarray = af::convolve3(signal.get_c_array(), filter.get_c_array(), mode, domain);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
