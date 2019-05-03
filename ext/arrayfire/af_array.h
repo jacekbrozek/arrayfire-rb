@@ -128,6 +128,7 @@ class AfArray {
     AfArray* ge(Object other);
     AfArray* le(Object other);
     AfArray* abs();
+    AfArray* arg();
 
   private:
     array get_c_array();
