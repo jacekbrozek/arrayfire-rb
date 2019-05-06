@@ -20,6 +20,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("identity", &AfArray::identity)
     .define_singleton_method("iota_c", &AfArray::iota)
     .define_singleton_method("range", &AfArray::range)
+    .define_singleton_method("setup_mnist", &AfArray::setup_mnist_internal)
     .define_singleton_method("solveLU", &AfArray::solveLU, (
       Arg("a"),
       Arg("pivot"),

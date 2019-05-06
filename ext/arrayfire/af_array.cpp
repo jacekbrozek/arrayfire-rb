@@ -1544,6 +1544,26 @@ AfArray* AfArray::dft_norm_dims(double norm_factor, Array dims) {
   return new AfArray(afarray);
 }
 
+Array AfArray::setup_mnist_internal(int perc, std::string path) {
+  array train_images, test_images;
+  array train_target, test_target;
+  int num_classes, num_train, num_test;
+  // Load mnist data
+  float frac = (float)(perc) / 100.0;
+  setup_mnist<true>(&num_classes, &num_train, &num_test,
+                   train_images, test_images, train_target, test_target, frac, path);
+
+  Array result;
+  result.push(new AfArray(train_images));
+  result.push(new AfArray(test_images));
+  result.push(new AfArray(train_target));
+  result.push(new AfArray(test_target));
+  result.push(num_classes);
+  result.push(num_train);
+  result.push(num_test);
+  return result;
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);

@@ -17,6 +17,7 @@
 #include <math.h>
 #include <map>
 #include <algorithm>
+#include "mnist_common.h"
 
 extern Rice::Module rb_mArrayFire;
 

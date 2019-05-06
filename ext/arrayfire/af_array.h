@@ -156,6 +156,7 @@ class AfArray {
     AfArray* dft_plain();
     AfArray* dft_dims(Array dims);
     AfArray* dft_norm_dims(double norm_factor, Array dims);
+    static Array setup_mnist_internal(int perc, std::string path);
 
   private:
     array get_c_array();
