@@ -15,5 +15,9 @@ module ArrayFire
 
       self.dft_plain
     end
+
+    def coerce(other)
+      [self.class.constant(other, self.dims, self.type), self]
+    end
 	end
 end
