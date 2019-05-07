@@ -1564,6 +1564,12 @@ Array AfArray::setup_mnist_internal(int perc, std::string path) {
   return result;
 }
 
+AfArray* AfArray::sigmoid() {
+  array afarray = af::sigmoid(this->c_array);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
