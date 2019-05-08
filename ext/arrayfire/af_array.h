@@ -80,6 +80,7 @@ class AfArray {
     AfArray* transpose(bool conjugate = false);
     float dot(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
     AfArray* matmul(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
+    AfArray* matmulTT(AfArray other);
     AfArray* solve(AfArray other, Symbol opts = "mat_none");
     static AfArray* solveLU(AfArray a, AfArray pivot, AfArray b, Symbol opts = "mat_none");
     AfArray* cholesky(bool is_upper = true);

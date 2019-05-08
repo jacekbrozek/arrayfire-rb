@@ -733,6 +733,12 @@ AfArray* AfArray::matmul(AfArray other, Symbol opt_lhs, Symbol opt_rhs) {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::matmulTT(AfArray other) {
+  array afarray = af::matmulTT(this->c_array, other.get_c_array());
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 AfArray* AfArray::solve(AfArray other, Symbol opts) {
   array afarray = af::solve(this->c_array, other.get_c_array(), ruby_sym_to_opts(opts));
   af_print(afarray);

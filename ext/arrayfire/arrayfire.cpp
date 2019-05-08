@@ -155,6 +155,7 @@ extern "C" void Init_arrayfire() {
       Arg("opt_lhs") = Symbol("mat_none"),
       Arg("opt_rhs") = Symbol("mat_none")
     ))
+    .define_method("matmulTT", &AfArray::matmulTT)
     .define_method("solve", &AfArray::solve, (
       Arg("other"),
       Arg("opts") = Symbol("mat_none")
