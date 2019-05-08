@@ -234,7 +234,13 @@ extern "C" void Init_arrayfire() {
     .define_method("dft_plain", &AfArray::dft_plain)
     .define_method("dft_dims", &AfArray::dft_dims)
     .define_method("dft_norm_dims", &AfArray::dft_norm_dims)
-    .define_method("sigmoid", &AfArray::sigmoid);
+    .define_method("sigmoid", &AfArray::sigmoid)
+    .define_method("[]", &AfArray::take, (
+      Arg("s0"),
+      Arg("s1") = to_ruby<int>(0),
+      Arg("s2") = Symbol("span"),
+      Arg("s3") = Symbol("span")
+    ));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

@@ -159,9 +159,11 @@ class AfArray {
     AfArray* dft_norm_dims(double norm_factor, Array dims);
     static Array setup_mnist_internal(int perc, std::string path);
     AfArray* sigmoid();
+    AfArray* take(Object s0, Object s1, Object s2, Object s3);
 
   private:
     array get_c_array();
+    af::index parse_index(Object ruby_index);
     static dim4 ruby_array_to_dimensions(Array dimensions);
     static int* ruby_array_to_ints(Array rb_array);
     Array dimensions_to_ruby_array(dim4 dimensions);

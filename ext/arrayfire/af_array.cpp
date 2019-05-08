@@ -1576,6 +1576,16 @@ AfArray* AfArray::sigmoid() {
   return new AfArray(afarray);
 }
 
+AfArray* AfArray::take(Object s0, Object s1, Object s2, Object s3) {
+  af::index idx0 = parse_index(s0);
+  af::index idx1 = parse_index(s1);
+  af::index idx2 = parse_index(s2);
+  af::index idx3 = parse_index(s3);
+  array afarray = this->c_array(idx0, idx1, idx2, idx3);
+  af_print(afarray);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
@@ -1616,6 +1626,32 @@ void AfArray::set_c_array(af_array afarray) {
 
 void AfArray::set_c_array(const array& afarray) {
   this->c_array = afarray;
+}
+
+af::index AfArray::parse_index(Object ruby_index) {
+  if(ruby_index.is_a(Data_Type<AfArray>::klass())) {
+    return af::index(from_ruby<AfArray>(ruby_index).get_c_array());
+  };
+
+  if(ruby_index.class_of().name() == String("Integer")) {
+    return af::index(from_ruby<int>(ruby_index));
+  };
+
+  if(ruby_index.class_of().name() == String("Symbol")) {
+    if(Symbol(ruby_index).str() == "span") {
+      return af::index(span);
+    };
+    if(Symbol(ruby_index).str() == "end") {
+      return af::index(end);
+    };
+  };
+
+  if(ruby_index.class_of().name() == String("Seq")) {
+    double begin = from_ruby<double>(ruby_index.iv_get(Identifier("@first")));
+    double end = from_ruby<double>(ruby_index.iv_get(Identifier("@last")));
+    double step = from_ruby<double>(ruby_index.iv_get(Identifier("@step")));
+    return af::index(af::seq(begin, end, step));
+  }
 }
 
 dim4 AfArray::ruby_array_to_dimensions(Array dimensions) {
