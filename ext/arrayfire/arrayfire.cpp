@@ -8,7 +8,9 @@ Module rb_mArrayFire;
 
 extern "C" void Init_arrayfire() {
   rb_mArrayFire = define_module("ArrayFire")
-    .define_singleton_method("info", &info);
+    .define_singleton_method("info", &info)
+    .define_singleton_method("set_device", &AfArray::set_device)
+    .define_singleton_method("set_backend", &AfArray::set_backend);
 
   Class rb_cArray = define_class_under<AfArray>(rb_mArrayFire, "Array")
     .define_constructor(Constructor<AfArray, Array, Array, Symbol>())
@@ -21,6 +23,7 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("iota_c", &AfArray::iota)
     .define_singleton_method("range", &AfArray::range)
     .define_singleton_method("setup_mnist", &AfArray::setup_mnist_internal)
+    .define_singleton_method("display_results", &AfArray::mnist_display_results)
     .define_singleton_method("solveLU", &AfArray::solveLU, (
       Arg("a"),
       Arg("pivot"),
@@ -240,7 +243,8 @@ extern "C" void Init_arrayfire() {
       Arg("s1") = to_ruby<int>(0),
       Arg("s2") = Symbol("span"),
       Arg("s3") = Symbol("span")
-    ));
+    ))
+    .define_method("sum", &AfArray::sum);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
@@ -308,6 +312,17 @@ af::convDomain ruby_sym_to_conv_domain(Symbol option) {
   options.insert(std::make_pair("conv_freq", AF_CONV_FREQ));
 
   return options.find(option)->second;
+}
+
+
+af::Backend ruby_sym_to_backend(Rice::Symbol backend) {
+  std::map<Symbol, af::Backend> options;
+  options.insert(std::make_pair("default", AF_BACKEND_DEFAULT));
+  options.insert(std::make_pair("cpu", AF_BACKEND_CPU));
+  options.insert(std::make_pair("cuda", AF_BACKEND_CUDA));
+  options.insert(std::make_pair("opencl", AF_BACKEND_OPENCL));
+
+  return options.find(backend)->second;
 }
 
 Symbol dtype_to_ruby_sym(dtype data_type) {

@@ -39,3 +39,4 @@ Rice::Symbol dtype_to_ruby_sym(af::dtype data_type);
 af::convMode ruby_sym_to_conv_mode(Rice::Symbol option);
 af::convDomain ruby_sym_to_conv_domain(Rice::Symbol option);
 af::normType ruby_sym_to_norm_type(Rice::Symbol norm_type);
+af::Backend ruby_sym_to_backend(Rice::Symbol backend);

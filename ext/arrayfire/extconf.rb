@@ -4,7 +4,7 @@ $CPPFLAGS += ' -I/opt/arrayfire/include'
 $LIBS += ' -L/opt/arrayfire/lib'
 $DLDFLAGS += ' -L/opt/arrayfire/lib'
 
-have_library('afcpu')
+have_library('af')
 
 dir_config('/opt/arrayfire/lib')
 

@@ -70,7 +70,7 @@ class AfArray {
     bool isvector();
     AfArray* flat();
     AfArray* flip(uint dimension);
-    AfArray* join(int dimension, Array arrays);
+    AfArray* join(int dimension, AfArray other);
     AfArray* moddims(Array dimensions);
     AfArray* reorder(int x, int y = 1, int z = 2, int w = 3);
     AfArray* replace(AfArray conditions, Object replacement);
@@ -158,8 +158,13 @@ class AfArray {
     AfArray* dft_dims(Array dims);
     AfArray* dft_norm_dims(double norm_factor, Array dims);
     static Array setup_mnist_internal(int perc, std::string path);
+    static void mnist_display_results(AfArray test_images, AfArray test_output, AfArray test_actual, int num_display);
     AfArray* sigmoid();
     AfArray* take(Object s0, Object s1, Object s2, Object s3);
+    float sum();
+    static void set_device(int device);
+    static void set_backend(Symbol backend);
+    static int get_backend_count();
 
   private:
     array get_c_array();
