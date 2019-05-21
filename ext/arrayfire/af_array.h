@@ -12,6 +12,7 @@ class AfArray {
     AfArray(array afarray);
     AfArray(Array dimensions, Array elements, Symbol data_type);
     void print();
+    void head();
     AfArray* multiply(Object other);
     AfArray* multiply_assign(Object other);
     AfArray* add(Object other);
@@ -167,6 +168,7 @@ class AfArray {
     static int get_backend_count();
 
   private:
+    static void af_head(array afarray);
     array get_c_array();
     af::index parse_index(Object ruby_index);
     static dim4 ruby_array_to_dimensions(Array dimensions);

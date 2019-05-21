@@ -71,6 +71,7 @@ extern "C" void Init_arrayfire() {
     ))
     // .define_singleton_method("create_strided_array", &AfArray::create_strided_array)
     .define_method("print", &AfArray::print)
+    .define_method("head", &AfArray::head)
     .define_method("*", &AfArray::multiply)
     .define_method("/", &AfArray::div)
     .define_method("+", &AfArray::add)
