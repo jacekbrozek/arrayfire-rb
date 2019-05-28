@@ -16,7 +16,6 @@ class AfArray {
     AfArray* multiply(Object other);
     AfArray* multiply_assign(Object other);
     AfArray* add(Object other);
-    AfArray* add_assign(Object other);
     AfArray* div(Object other);
     AfArray* div_assign(Object other);
     AfArray* sub(Object other);
@@ -180,10 +179,6 @@ class AfArray {
     AfArray* multiply_internal(int value);
     AfArray* multiply_assign_internal(AfArray other);
     AfArray* multiply_assign_internal(int value);
-    AfArray* add_internal(AfArray other);
-    AfArray* add_internal(int value);
-    AfArray* add_assign_internal(AfArray other);
-    AfArray* add_assign_internal(int value);
     AfArray* div_internal(AfArray other);
     AfArray* div_internal(int value);
     AfArray* div_assign_internal(AfArray other);

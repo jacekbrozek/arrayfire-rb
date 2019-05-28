@@ -88,43 +88,36 @@ AfArray* AfArray::multiply_assign_internal(int value) {
 }
 
 AfArray* AfArray::add(Object other) {
+  array afarray;
   if(other.is_a(Data_Type<AfArray>::klass())) {
-    return AfArray::add_internal(from_ruby<AfArray>(other));
-  } else {
-    return AfArray::add_internal(from_ruby<int>(other));
-  }
-}
+    afarray = this->c_array + from_ruby<AfArray>(other).get_c_array();
+    af_head(afarray);
+    return new AfArray(afarray);
+  };
 
-AfArray* AfArray::add_internal(AfArray other) {
-  array afarray = this->c_array + other.get_c_array();
-  af_head(afarray);
-  return new AfArray(afarray);
-}
+  if(other.class_of().name() == String("Integer")) {
+    afarray = this->c_array + from_ruby<int>(other);
+    af_head(afarray);
+    return new AfArray(afarray);
+  };
 
-AfArray* AfArray::add_internal(int value) {
-  array afarray = this->c_array + value;
-  af_head(afarray);
-  return new AfArray(afarray);
-}
+  if(other.class_of().name() == String("Float")) {
+    afarray = this->c_array + from_ruby<double>(other);
+    af_head(afarray);
+    return new AfArray(afarray);
+  };
 
-AfArray* AfArray::add_assign(Object other) {
-  if(other.is_a(Data_Type<AfArray>::klass())) {
-    return AfArray::add_assign_internal(from_ruby<AfArray>(other));
-  } else {
-    return AfArray::add_assign_internal(from_ruby<int>(other));
-  }
-}
+  if(other.class_of().name() == String("Complex")) {
+    afarray = this->c_array + cast_ruby_to_complex<cdouble>(other);
+    af_head(afarray);
+    return new AfArray(afarray);
+  };
 
-AfArray* AfArray::add_assign_internal(AfArray other) {
-  this->c_array += other.get_c_array();
-  this->head();
-  return this;
-}
-
-AfArray* AfArray::add_assign_internal(int value) {
-  this->c_array += value;
-  this->head();
-  return this;
+  if(other.class_of().name() == String("TrueClass") || other.class_of().name() == String("FalseClass")) {
+    afarray = this->c_array + from_ruby<bool>(other);
+    af_head(afarray);
+    return new AfArray(afarray);
+  };
 }
 
 AfArray* AfArray::div(Object other) {

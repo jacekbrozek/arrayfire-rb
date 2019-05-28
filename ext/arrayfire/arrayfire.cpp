@@ -87,7 +87,6 @@ extern "C" void Init_arrayfire() {
     .define_method("imag", &AfArray::imag)
     .define_method("conjg", &AfArray::conjg)
     .define_method("*=", &AfArray::multiply_assign)
-    .define_method("+=", &AfArray::add_assign)
     .define_method("/=", &AfArray::div_assign)
     .define_method("-=", &AfArray::sub_assign)
     .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true))
