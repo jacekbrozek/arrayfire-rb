@@ -1630,8 +1630,8 @@ float AfArray::sum() {
 // Private
 
 void AfArray::af_head(array afarray) {
-  printf("%s\n", "Showing head");
   if(afarray.dims(0) > 5) {
+    printf("%s\n", "Showing head");
     if(afarray.dims(1) > 10) {
       af_print(afarray(seq(0,4), seq(0,9)));
     } else {
@@ -1639,6 +1639,7 @@ void AfArray::af_head(array afarray) {
     }
   } else {
     if(afarray.dims(1) > 10) {
+      printf("%s\n", "Showing head");
       af_print(afarray(span, seq(0,9)));
     } else {
       af_print(afarray);
