@@ -78,7 +78,7 @@ class AfArray {
     AfArray* shift(int x, int y = 0, int z = 0, int w = 0);
     AfArray* tile(int x, int y = 1, int z = 1, int w = 1);
     AfArray* transpose(bool conjugate = false);
-    float dot(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
+    AfArray* dot(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
     AfArray* matmul(AfArray other, Symbol opt_lhs = "mat_none", Symbol opt_rhs = "mat_none");
     AfArray* matmulTT(AfArray other);
     AfArray* solve(AfArray other, Symbol opts = "mat_none");
@@ -175,6 +175,7 @@ class AfArray {
     Array dimensions_to_ruby_array(dim4 dimensions);
     void set_c_array(af_array afarray);
     void set_c_array(const array& afarray);
+    static af::array batch_multiply(const af::array &lhs, const af::array &rhs);
     AfArray* multiply_internal(AfArray other);
     AfArray* multiply_internal(int value);
     AfArray* multiply_assign_internal(AfArray other);
