@@ -24,6 +24,10 @@ extern "C" void Init_arrayfire() {
     .define_singleton_method("range", &AfArray::range)
     .define_singleton_method("setup_mnist", &AfArray::setup_mnist_internal)
     .define_singleton_method("display_results", &AfArray::mnist_display_results)
+    .define_singleton_method("load_image", &AfArray::load_image, (
+      Arg("filename"),
+      Arg("is_color") = false
+    ))
     .define_singleton_method("solveLU", &AfArray::solveLU, (
       Arg("a"),
       Arg("pivot"),
@@ -244,7 +248,10 @@ extern "C" void Init_arrayfire() {
       Arg("s2") = Symbol("span"),
       Arg("s3") = Symbol("span")
     ))
-    .define_method("sum", &AfArray::sum);
+    .define_method("sum", &AfArray::sum)
+    .define_method("save_image", &AfArray::save_image)
+    .define_method("sum_by", &AfArray::sum_by)
+    .define_method("amax", &AfArray::amax);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

@@ -23,6 +23,7 @@ class AfArray {
     static AfArray* randu(Array dimensions, Symbol data_type);
     static AfArray* randn(Array dimensions, Symbol data_type);
     static AfArray* constant(Object value, Array dimensions, Symbol data_type);
+    static AfArray* load_image(String filename, bool is_color = false);
     static AfArray* range(int seq_dim, Array dimensions, Symbol data_type);
     static void set_seed(int seed);
     static int get_seed();
@@ -165,6 +166,9 @@ class AfArray {
     static void set_device(int device);
     static void set_backend(Symbol backend);
     static int get_backend_count();
+    AfArray* sum_by(int dim);
+    float amax();
+    void save_image(String filename);
 
   private:
     static void af_head(array afarray);

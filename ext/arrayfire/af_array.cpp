@@ -1235,6 +1235,10 @@ AfArray* AfArray::max(Object other) {
   return new AfArray(this->c_array);
 }
 
+float AfArray::amax() {
+  return af::max<float>(this->c_array);
+}
+
 AfArray* AfArray::min(Object other) {
   if(other.is_a(Data_Type<AfArray>::klass())) {
     array afarray = af::min(this->c_array, from_ruby<AfArray>(other).get_c_array());
@@ -1479,6 +1483,11 @@ float AfArray::sum() {
   return af::sum<float>(this->c_array);
 }
 
+AfArray* AfArray::sum_by(int dim) {
+  array afarray = af::sum(this->c_array, dim);
+  return new AfArray(afarray);
+}
+
 // AfArray* AfArray::create_strided_array(Array elements, Array dimensions, int offset, Array strides, Symbol data_type, Symbol source) {
 //   array afarray = 0;
 //   dtype type = ruby_sym_to_dtype(data_type);
@@ -1500,6 +1509,15 @@ float AfArray::sum() {
 
 //   return new AfArray(afarray);
 // }
+
+AfArray* AfArray::load_image(String filename, bool is_color) {
+  array afarray = af::loadImage(filename.c_str(), is_color);
+  return new AfArray(afarray);
+}
+
+void AfArray::save_image(String filename) {
+  af::saveImage(filename.c_str(), this->c_array);
+}
 
 // Private
 
