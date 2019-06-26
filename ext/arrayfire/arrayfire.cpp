@@ -251,7 +251,8 @@ extern "C" void Init_arrayfire() {
     .define_method("sum", &AfArray::sum)
     .define_method("save_image", &AfArray::save_image)
     .define_method("sum_by", &AfArray::sum_by)
-    .define_method("amax", &AfArray::amax);
+    .define_method("amax", &AfArray::amax)
+    .define_method("argmax", &AfArray::argmax);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

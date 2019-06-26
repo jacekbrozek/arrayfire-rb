@@ -1239,6 +1239,13 @@ float AfArray::amax() {
   return af::max<float>(this->c_array);
 }
 
+int AfArray::argmax() {
+  unsigned int idx;
+  float val;
+  af::max<float>(&val, &idx, this->c_array);
+  return idx;
+}
+
 AfArray* AfArray::min(Object other) {
   if(other.is_a(Data_Type<AfArray>::klass())) {
     array afarray = af::min(this->c_array, from_ruby<AfArray>(other).get_c_array());

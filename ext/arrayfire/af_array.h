@@ -168,6 +168,7 @@ class AfArray {
     static int get_backend_count();
     AfArray* sum_by(int dim);
     float amax();
+    int argmax();
     void save_image(String filename);
 
   private:
