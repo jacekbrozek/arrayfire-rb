@@ -28,5 +28,17 @@ module ArrayFire
         end
       end
     end
+
+    def each_tile(width, height, &block)
+      rows_num, cols_num = self.dims
+      h = rows_num / height
+      w = cols_num / width
+
+      for i in 0...h do
+        for j in 0...w do
+          yield self.cols((i * width), (i * width + width - 1)).rows((j * height), (j * height + height - 1)), i, j
+        end
+      end
+    end
   end
 end
