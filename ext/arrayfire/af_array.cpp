@@ -1525,20 +1525,30 @@ void AfArray::save_image(String filename) {
   af::saveImage(filename.c_str(), this->c_array);
 }
 
-Object AfArray::set_value(int index, Object element) {
+Object AfArray::set_value(Object s0, Object s1, Object s2, Object s3, Object element) {
+  af::index idx0 = parse_index(s0);
+  af::index idx1 = parse_index(s1);
+  af::index idx2 = parse_index(s2);
+  af::index idx3 = parse_index(s3);
+
+  if(element.is_a(Data_Type<AfArray>::klass())) {
+    this->c_array(idx0, idx1, idx2, idx3) == from_ruby<AfArray>(element).get_c_array();
+    return element;
+  };
+
   dtype type = this->c_array.type();
   switch (type) {
-    case f32: this->c_array(index) = from_ruby<float>(element); break;
-    case c32: this->c_array(index) = from_ruby<cfloat>(element); break;
-    case f64: this->c_array(index) = from_ruby<double>(element); break;
-    case c64: this->c_array(index) = from_ruby<cdouble>(element); break;
-    case b8:  this->c_array(index) = from_ruby<char>(element); break;
-    case s32: this->c_array(index) = from_ruby<int>(element); break;
-    case u32: this->c_array(index) = from_ruby<uint>(element); break;
-    case s64: this->c_array(index) = from_ruby<intl>(element); break;
-    case u64: this->c_array(index) = from_ruby<uintl>(element); break;
-    case s16: this->c_array(index) = from_ruby<short>(element); break;
-    case u16: this->c_array(index) = from_ruby<ushort>(element); break;
+    case f32: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<float>(element); break;
+    case c32: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<cfloat>(element); break;
+    case f64: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<double>(element); break;
+    case c64: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<cdouble>(element); break;
+    case b8:  this->c_array(idx0, idx1, idx2, idx3) = from_ruby<char>(element); break;
+    case s32: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<int>(element); break;
+    case u32: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<uint>(element); break;
+    case s64: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<intl>(element); break;
+    case u64: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<uintl>(element); break;
+    case s16: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<short>(element); break;
+    case u16: this->c_array(idx0, idx1, idx2, idx3) = from_ruby<ushort>(element); break;
   }
   return element;
 }

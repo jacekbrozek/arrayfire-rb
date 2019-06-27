@@ -252,7 +252,13 @@ extern "C" void Init_arrayfire() {
     .define_method("sum_by", &AfArray::sum_by)
     .define_method("amax", &AfArray::amax)
     .define_method("argmax", &AfArray::argmax)
-    .define_method("[]=", &AfArray::set_value);
+    .define_method("[]=", &AfArray::set_value, (
+      Arg("s0"),
+      Arg("s1") = to_ruby<int>(0),
+      Arg("s2") = Symbol("span"),
+      Arg("s3") = Symbol("span"),
+      Arg("element")
+    ));
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {
@@ -287,6 +293,8 @@ af::matProp ruby_sym_to_opts(Symbol option) {
   options.insert(std::make_pair("mat_conj", AF_MAT_CONJ));
   options.insert(std::make_pair("mat_lower", AF_MAT_LOWER));
   options.insert(std::make_pair("mat_upper", AF_MAT_UPPER));
+  options.insert(std::make_pair("mat_trans", AF_MAT_TRANS));
+  options.insert(std::make_pair("mat_ctrans", AF_MAT_CTRANS));
 
   return options.find(option)->second;
 }
