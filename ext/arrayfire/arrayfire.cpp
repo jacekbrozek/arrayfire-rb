@@ -92,7 +92,6 @@ extern "C" void Init_arrayfire() {
     .define_method("conjg", &AfArray::conjg)
     .define_method("*=", &AfArray::multiply_assign)
     .define_method("/=", &AfArray::div_assign)
-    .define_method("-=", &AfArray::sub_assign)
     .define_method("diag", &AfArray::diag, (Arg("num") = 0, Arg("extract") = true))
     .define_method("lower", &AfArray::lower, (Arg("is_unit_diag") = false))
     .define_method("upper", &AfArray::upper, (Arg("is_unit_diag") = false))
@@ -252,7 +251,8 @@ extern "C" void Init_arrayfire() {
     .define_method("save_image", &AfArray::save_image)
     .define_method("sum_by", &AfArray::sum_by)
     .define_method("amax", &AfArray::amax)
-    .define_method("argmax", &AfArray::argmax);
+    .define_method("argmax", &AfArray::argmax)
+    .define_method("[]=", &AfArray::set_value);
 }
 
 dtype ruby_sym_to_dtype(Symbol data_type) {

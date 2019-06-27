@@ -30,7 +30,7 @@ AfArray::AfArray(Array dimensions, Array elements, Symbol data_type) {
     case u16: create_internal_array_ushort<ushort>(&afarray, elements, tdims, type); break;
   }
 
-  this->head();
+  // this->head();
 }
 
 // Public
@@ -85,13 +85,13 @@ AfArray* AfArray::multiply_assign(Object other) {
 
 AfArray* AfArray::multiply_assign_internal(AfArray other) {
   this->c_array *= other.get_c_array();
-  this->head();
+  // this->head();
   return this;
 }
 
 AfArray* AfArray::multiply_assign_internal(int value) {
   this->c_array *= value;
-  this->head();
+  // this->head();
   return this;
 }
 
@@ -151,13 +151,13 @@ AfArray* AfArray::div_assign(Object other) {
 
 AfArray* AfArray::div_assign_internal(AfArray other) {
   this->c_array /= other.get_c_array();
-  this->head();
+  // this->head();
   return this;
 }
 
 AfArray* AfArray::div_assign_internal(int value) {
   this->c_array /= value;
-  this->head();
+  // this->head();
   return this;
 }
 
@@ -199,13 +199,13 @@ AfArray* AfArray::sub_assign(Object other) {
 
 AfArray* AfArray::sub_assign_internal(AfArray other) {
   this->c_array -= other.get_c_array();
-  this->head();
+  // this->head();
   return this;
 }
 
 AfArray* AfArray::sub_assign_internal(int value) {
   this->c_array -= value;
-  this->head();
+  // this->head();
   return this;
 }
 
@@ -404,7 +404,7 @@ AfArray* AfArray::slice(int index) {
 
 AfArray* AfArray::slices(int first, int last) {
   array afarray = this->c_array.slices(first, last);
-  af_print(afarray);
+  // af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -607,12 +607,12 @@ AfArray* AfArray::replace(AfArray conditions, Object replacement) {
   if(replacement.is_a(Data_Type<AfArray>::klass())) {
     AfArray replacement_array = from_ruby<AfArray>(replacement);
     af::replace(this->c_array, conditions.get_c_array(), replacement_array.get_c_array());
-    this->head();
+    // this->head();
     return this;
   } else {
     double replacement_value = from_ruby<double>(replacement);
     af::replace(this->c_array, conditions.get_c_array(), replacement_value);
-    this->head();
+    // this->head();
     return this;
   }
 }
@@ -1182,7 +1182,7 @@ AfArray* AfArray::arg() {
 
 AfArray* AfArray::ceil() {
   if(this->iscomplex()) {
-    this->head();
+    // this->head();
     return new AfArray(this->c_array);
   };
 
@@ -1192,7 +1192,7 @@ AfArray* AfArray::ceil() {
 
 AfArray* AfArray::floor() {
   if(this->iscomplex()) {
-    this->head();
+    // this->head();
     return new AfArray(this->c_array);
   };
 
@@ -1203,7 +1203,7 @@ AfArray* AfArray::floor() {
 AfArray* AfArray::hypot(Object other) {
   if(other.is_a(Data_Type<AfArray>::klass())) {
     if(this->iscomplex() || from_ruby<AfArray>(other).iscomplex()) {
-      this->head();
+      // this->head();
       return new AfArray(this->c_array);
     };
     array afarray = af::hypot(this->c_array, from_ruby<AfArray>(other).get_c_array());
@@ -1305,7 +1305,7 @@ AfArray* AfArray::rem(Object other) {
 
 AfArray* AfArray::round() {
   if(this->iscomplex()) {
-    this->head();
+    // this->head();
     return new AfArray(this->c_array);
   };
 
@@ -1315,7 +1315,7 @@ AfArray* AfArray::round() {
 
 AfArray* AfArray::sign() {
   if(this->iscomplex()) {
-    this->head();
+    // this->head();
     return new AfArray(this->c_array);
   };
 
@@ -1325,7 +1325,7 @@ AfArray* AfArray::sign() {
 
 AfArray* AfArray::trunc() {
   if(this->iscomplex()) {
-    this->head();
+    // this->head();
     return new AfArray(this->c_array);
   };
 
@@ -1482,7 +1482,6 @@ AfArray* AfArray::take(Object s0, Object s1, Object s2, Object s3) {
   af::index idx2 = parse_index(s2);
   af::index idx3 = parse_index(s3);
   array afarray = this->c_array(idx0, idx1, idx2, idx3);
-  af_print(afarray);
   return new AfArray(afarray);
 }
 
@@ -1524,6 +1523,24 @@ AfArray* AfArray::load_image(String filename, bool is_color) {
 
 void AfArray::save_image(String filename) {
   af::saveImage(filename.c_str(), this->c_array);
+}
+
+Object AfArray::set_value(int index, Object element) {
+  dtype type = this->c_array.type();
+  switch (type) {
+    case f32: this->c_array(index) = from_ruby<float>(element); break;
+    case c32: this->c_array(index) = from_ruby<cfloat>(element); break;
+    case f64: this->c_array(index) = from_ruby<double>(element); break;
+    case c64: this->c_array(index) = from_ruby<cdouble>(element); break;
+    case b8:  this->c_array(index) = from_ruby<char>(element); break;
+    case s32: this->c_array(index) = from_ruby<int>(element); break;
+    case u32: this->c_array(index) = from_ruby<uint>(element); break;
+    case s64: this->c_array(index) = from_ruby<intl>(element); break;
+    case u64: this->c_array(index) = from_ruby<uintl>(element); break;
+    case s16: this->c_array(index) = from_ruby<short>(element); break;
+    case u16: this->c_array(index) = from_ruby<ushort>(element); break;
+  }
+  return element;
 }
 
 // Private

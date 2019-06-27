@@ -169,6 +169,7 @@ class AfArray {
     AfArray* sum_by(int dim);
     float amax();
     int argmax();
+    Object set_value(int index, Object element);
     void save_image(String filename);
 
   private:
